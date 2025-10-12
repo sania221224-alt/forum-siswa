@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum Kedisiplinan Sekolah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-full">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-indigo-800 mb-2">📋 Forum Kedisiplinan</h1>
+            <p class="text-gray-600">Sistem Monitoring Pelanggaran Siswa</p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="flex justify-center mb-8">
+            <div class="bg-white rounded-lg shadow-md p-1 flex">
+                <button onclick="showTab('public')" id="publicTab" class="px-6 py-2 rounded-md font-medium transition-all bg-indigo-500 text-white">
+                    👥 Data Publik
+                </button>
+                <button onclick="showTab('teacher')" id="teacherTab" class="px-6 py-2 rounded-md font-medium transition-all text-gray-600 hover:text-indigo-600">
+                    👨‍🏫 Akses Guru
+                </button>
+                <button onclick="showTab('recap')" id="recapTab" class="px-6 py-2 rounded-md font-medium transition-all text-gray-600 hover:text-indigo-600">
+                    📊 Rekap Mingguan
+                </button>
+            </div>
+        </div>
+
+        <!-- Public Data Tab -->
+        <div id="publicSection" class="fade-in">
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Data Poin Pelanggaran Siswa</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-indigo-50">
+                                <th class="border border-gray-300 px-4 py-3 text-left font-semibold text-indigo-800">Nama Siswa</th>
+                                <th class="border border-gray-300 px-4 py-3 text-left font-semibold text-indigo-800">Kelas</th>
+                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold text-indigo-800">Total Poin</th>
+                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold text-indigo-800">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTable">
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">Ahmad Rizki</td>
+                                <td class="border border-gray-300 px-4 py-3">XI IPA 1</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center font-bold text-orange-600">15</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center">
+                                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-sm">Peringatan</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">Siti Nurhaliza</td>
+                                <td class="border border-gray-300 px-4 py-3">X IPS 2</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center font-bold text-green-600">5</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center">
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">Baik</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">Budi Santoso</td>
+                                <td class="border border-gray-300 px-4 py-3">XII IPA 3</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center font-bold text-red-600">25</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center">
+                                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm">Bermasalah</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">📋 Kategori Status</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Baik</span>
+                        <span class="text-gray-600">0-10 poin</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">Peringatan</span>
+                        <span class="text-gray-600">11-20 poin</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Bermasalah</span>
+                        <span class="text-gray-600">21+ poin</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teacher Access Tab -->
+        <div id="teacherSection" class="hidden">
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">🔐 Akses Guru</h2>
+                
+                <div id="loginForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Kode Akses Guru</label>
+                        <input type="password" id="teacherCode" placeholder="Masukkan kode akses" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <button onclick="verifyTeacher()" class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
+                        🔓 Masuk
+                    </button>
+                    <p class="text-sm text-gray-500 text-center"> </p>
+                </div>
+
+                <div id="teacherPanel" class="hidden space-y-6">
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <p class="text-green-800 font-medium">✅ Berhasil masuk sebagai guru</p>
+                    </div>
+
+                    <!-- Student Selection -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Siswa</label>
+                        <select id="studentSelect" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <option value="">-- Pilih Siswa --</option>
+                            <option value="Ahmad Rizki">Ahmad Rizki - XI IPA 1</option>
+                            <option value="Siti Nurhaliza">Siti Nurhaliza - X IPS 2</option>
+                            <option value="Budi Santoso">Budi Santoso - XII IPA 3</option>
+                            <option value="Dewi Sartika">Dewi Sartika - XI IPS 1</option>
+                        </select>
+                    </div>
+
+                    <!-- Violation Types -->
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Jenis Pelanggaran</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <button onclick="addViolation('Terlambat', 2)" class="bg-yellow-100 hover:bg-yellow-200 border-2 border-yellow-300 rounded-lg p-4 text-left transition-all">
+                                <div class="font-bold text-yellow-800">⏰ Terlambat</div>
+                                <div class="text-sm text-yellow-600">+2 poin</div>
+                            </button>
+                            <button onclick="addViolation('Tidak Mengerjakan PR', 3)" class="bg-orange-100 hover:bg-orange-200 border-2 border-orange-300 rounded-lg p-4 text-left transition-all">
+                                <div class="font-bold text-orange-800">📚 Tidak Mengerjakan PR</div>
+                                <div class="text-sm text-orange-600">+3 poin</div>
+                            </button>
+                            <button onclick="addViolation('Tidak Berseragam', 5)" class="bg-red-100 hover:bg-red-200 border-2 border-red-300 rounded-lg p-4 text-left transition-all">
+                                <div class="font-bold text-red-800">👔 Tidak Berseragam</div>
+                                <div class="text-sm text-red-600">+5 poin</div>
+                            </button>
+                            <button onclick="addViolation('Mengganggu Kelas', 4)" class="bg-purple-100 hover:bg-purple-200 border-2 border-purple-300 rounded-lg p-4 text-left transition-all">
+                                <div class="font-bold text-purple-800">🗣️ Mengganggu Kelas</div>
+                                <div class="text-sm text-purple-600">+4 poin</div>
+                            </button>
+                            <button onclick="addViolation('Merokok', 10)" class="bg-red-200 hover:bg-red-300 border-2 border-red-400 rounded-lg p-4 text-left transition-all">
+                                <div class="font-bold text-red-900">🚭 Merokok</div>
+                                <div class="text-sm text-red-700">+10 poin</div>
+                            </button>
+                            <button onclick="addViolation('Berkelahi', 15)" class="bg-red-300 hover:bg-red-400 border-2 border-red-500 rounded-lg p-4 text-left transition-all">
+                                <div class="font-bold text-red-900">👊 Berkelahi</div>
+                                <div class="text-sm text-red-800">+15 poin</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button onclick="logout()" class="w-full bg-gray-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-600 transition-colors">
+                        🚪 Keluar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weekly Recap Tab -->
+        <div id="recapSection" class="hidden">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Rekap Mingguan</h2>
+                
+                <div class="mb-6">
+                    <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+                        <h3 class="font-bold text-indigo-800 mb-2">📅 Periode: 1-7 Januari 2024</h3>
+                        <p class="text-indigo-600">Rekap otomatis setiap akhir minggu</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+                        <div class="text-3xl font-bold text-green-600">12</div>
+                        <div class="text-green-800 font-medium">Siswa Baik</div>
+                    </div>
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
+                        <div class="text-3xl font-bold text-yellow-600">5</div>
+                        <div class="text-yellow-800 font-medium">Siswa Peringatan</div>
+                    </div>
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
+                        <div class="text-3xl font-bold text-red-600">3</div>
+                        <div class="text-red-800 font-medium">Siswa Bermasalah</div>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Jenis Pelanggaran</th>
+                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Jumlah Kasus</th>
+                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Total Poin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">⏰ Terlambat</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center">8</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">16</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">📚 Tidak Mengerjakan PR</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center">5</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">15</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">👔 Tidak Berseragam</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center">3</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">15</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">🗣️ Mengganggu Kelas</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center">2</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">8</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+            <div class="flex items-center space-x-2">
+                <span>✅</span>
+                <span id="successText">Poin berhasil ditambahkan!</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Student data storage
+        let studentData = {
+            'Ahmad Rizki': { class: 'XI IPA 1', points: 15 },
+            'Siti Nurhaliza': { class: 'X IPS 2', points: 5 },
+            'Budi Santoso': { class: 'XII IPA 3', points: 25 },
+            'Dewi Sartika': { class: 'XI IPS 1', points: 8 }
+        };
+
+        // Valid teacher codes
+        const teacherCodes = ['SMANJA091025'];
+
+        function showTab(tab) {
+            // Hide all sections
+            document.getElementById('publicSection').classList.add('hidden');
+            document.getElementById('teacherSection').classList.add('hidden');
+            document.getElementById('recapSection').classList.add('hidden');
+
+            // Remove active class from all tabs
+            document.getElementById('publicTab').classList.remove('bg-indigo-500', 'text-white');
+            document.getElementById('teacherTab').classList.remove('bg-indigo-500', 'text-white');
+            document.getElementById('recapTab').classList.remove('bg-indigo-500', 'text-white');
+            
+            document.getElementById('publicTab').classList.add('text-gray-600');
+            document.getElementById('teacherTab').classList.add('text-gray-600');
+            document.getElementById('recapTab').classList.add('text-gray-600');
+
+            // Show selected section and activate tab
+            if (tab === 'public') {
+                document.getElementById('publicSection').classList.remove('hidden');
+                document.getElementById('publicTab').classList.add('bg-indigo-500', 'text-white');
+                document.getElementById('publicTab').classList.remove('text-gray-600');
+            } else if (tab === 'teacher') {
+                document.getElementById('teacherSection').classList.remove('hidden');
+                document.getElementById('teacherTab').classList.add('bg-indigo-500', 'text-white');
+                document.getElementById('teacherTab').classList.remove('text-gray-600');
+            } else if (tab === 'recap') {
+                document.getElementById('recapSection').classList.remove('hidden');
+                document.getElementById('recapTab').classList.add('bg-indigo-500', 'text-white');
+                document.getElementById('recapTab').classList.remove('text-gray-600');
+            }
+        }
+
+        function verifyTeacher() {
+            const code = document.getElementById('teacherCode').value;
+            
+            if (teacherCodes.includes(code)) {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('teacherPanel').classList.remove('hidden');
+            } else {
+                alert('❌ Kode akses tidak valid! Gunakan GURU123 atau ADMIN456 untuk demo.');
+            }
+        }
+
+        function logout() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('teacherPanel').classList.add('hidden');
+            document.getElementById('teacherCode').value = '';
+        }
+
+        function addViolation(violationType, points) {
+            const selectedStudent = document.getElementById('studentSelect').value;
+            
+            if (!selectedStudent) {
+                alert('⚠️ Silakan pilih siswa terlebih dahulu!');
+                return;
+            }
+
+            // Add points to student
+            studentData[selectedStudent].points += points;
+            
+            // Update table
+            updateStudentTable();
+            
+            // Show success message
+            showSuccessMessage(`Poin ${violationType} (+${points}) berhasil ditambahkan untuk ${selectedStudent}`);
+        }
+
+        function updateStudentTable() {
+            const tableBody = document.getElementById('studentTable');
+            tableBody.innerHTML = '';
+
+            Object.keys(studentData).forEach(name => {
+                const student = studentData[name];
+                const row = document.createElement('tr');
+                
+                let status, statusClass;
+                if (student.points <= 10) {
+                    status = 'Baik';
+                    statusClass = 'bg-green-100 text-green-800';
+                } else if (student.points <= 20) {
+                    status = 'Peringatan';
+                    statusClass = 'bg-yellow-100 text-yellow-800';
+                } else {
+                    status = 'Bermasalah';
+                    statusClass = 'bg-red-100 text-red-800';
+                }
+
+                let pointsColor;
+                if (student.points <= 10) pointsColor = 'text-green-600';
+                else if (student.points <= 20) pointsColor = 'text-orange-600';
+                else pointsColor = 'text-red-600';
+
+                row.innerHTML = `
+                    <td class="border border-gray-300 px-4 py-3">${name}</td>
+                    <td class="border border-gray-300 px-4 py-3">${student.class}</td>
+                    <td class="border border-gray-300 px-4 py-3 text-center font-bold ${pointsColor}">${student.points}</td>
+                    <td class="border border-gray-300 px-4 py-3 text-center">
+                        <span class="${statusClass} px-2 py-1 rounded-full text-sm">${status}</span>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        function showSuccessMessage(message) {
+            const successMessage = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            
+            successText.textContent = message;
+            successMessage.classList.remove('hidden');
+            successMessage.classList.add('pulse-animation');
+            
+            setTimeout(() => {
+                successMessage.classList.add('hidden');
+                successMessage.classList.remove('pulse-animation');
+            }, 3000);
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStudentTable();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98be59d7d481fdc5',t:'MTc2MDAxNzg2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum Kedisiplinan Sekolah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-full">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-indigo-800 mb-2">📋 Forum Kedisiplinan</h1>
+            <p class="text-gray-600">Sistem Monitoring Pelanggaran Siswa</p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="flex justify-center mb-8">
+            <div class="bg-white rounded-lg shadow-md p-1 flex">
+                <button onclick="showTab('public')" id="publicTab" class="px-6 py-2 rounded-md font-medium transition-all bg-indigo-500 text-white">
+                    👥 Data Publik
+                </button>
+                <button onclick="showTab('teacher')" id="teacherTab" class="px-6 py-2 rounded-md font-medium transition-all text-gray-600 hover:text-indigo-600">
+                    👨‍🏫 Akses Guru
+                </button>
+                <button onclick="showTab('recap')" id="recapTab" class="px-6 py-2 rounded-md font-medium transition-all text-gray-600 hover:text-indigo-600">
+                    📊 Rekap Mingguan
+                </button>
+            </div>
+        </div>
+
+        <!-- Public Data Tab -->
+        <div id="publicSection" class="fade-in">
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Data Poin Pelanggaran Siswa</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-indigo-50">
+                                <th class="border border-gray-300 px-4 py-3 text-left font-semibold text-indigo-800">Nama Siswa</th>
+                                <th class="border border-gray-300 px-4 py-3 text-left font-semibold text-indigo-800">Kelas</th>
+                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold text-indigo-800">Total Poin</th>
+                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold text-indigo-800">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTable">
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">Ahmad Rizki</td>
+                                <td class="border border-gray-300 px-4 py-3">XI IPA 1</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center font-bold text-orange-600">15</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center">
+                                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-sm">Peringatan</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">Siti Nurhaliza</td>
+                                <td class="border border-gray-300 px-4 py-3">X IPS 2</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center font-bold text-green-600">5</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center">
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">Baik</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">Budi Santoso</td>
+                                <td class="border border-gray-300 px-4 py-3">XII IPA 3</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center font-bold text-red-600">25</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center">
+                                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm">Bermasalah</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">📋 Kategori Status</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Baik</span>
+                        <span class="text-gray-600">0-10 poin</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">Peringatan</span>
+                        <span class="text-gray-600">11-20 poin</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Bermasalah</span>
+                        <span class="text-gray-600">21+ poin</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teacher Access Tab -->
+        <div id="teacherSection" class="hidden">
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">🔐 Akses Guru</h2>
+                
+                <div id="loginForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Kode Akses Guru</label>
+                        <input type="password" id="teacherCode" placeholder="Masukkan kode akses" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <button onclick="verifyTeacher()" class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
+                        🔓 Masuk
+                    </button>
+                    <p class="text-sm text-gray-500 text-center">Demo: gunakan kode "GURU123" atau "ADMIN456"</p>
+                </div>
+
+                <div id="teacherPanel" class="hidden space-y-6">
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <p class="text-green-800 font-medium">✅ Berhasil masuk sebagai guru</p>
+                    </div>
+
+                    <!-- Student Selection -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Siswa</label>
+                        <select id="studentSelect" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <option value="">-- Pilih Siswa --</option>
+                            <option value="Ahmad Rizki">Ahmad Rizki - XI IPA 1</option>
+                            <option value="Siti Nurhaliza">Siti Nurhaliza - X IPS 2</option>
+                            <option value="Budi Santoso">Budi Santoso - XII IPA 3</option>
+                            <option value="Dewi Sartika">Dewi Sartika - XI IPS 1</option>
+                        </select>
+                    </div>
+
+                    <!-- Violation Types -->
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Jenis Pelanggaran</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <button onclick="addViolation('Terlambat', 2)" class="bg-yellow-100 hover:bg-yellow-200 border-2 border-yellow-300 rounded-lg p-4 text-left transition-all">
+                                <div class="font-bold text-yellow-800">⏰ Terlambat</div>
+                                <div class="text-sm text-yellow-600">+2 poin</div>
+                            </button>
+                            <button onclick="addViolation('Tidak Mengerjakan PR', 3)" class="bg-orange-100 hover:bg-orange-200 border-2 border-orange-300 rounded-lg p-4 text-left transition-all">
+                                <div class="font-bold text-orange-800">📚 Tidak Mengerjakan PR</div>
+                                <div class="text-sm text-orange-600">+3 poin</div>
+                            </button>
+                            <button onclick="addViolation('Tidak Berseragam', 5)" class="bg-red-100 hover:bg-red-200 border-2 border-red-300 rounded-lg p-4 text-left transition-all">
+                                <div class="font-bold text-red-800">👔 Tidak Berseragam</div>
+                                <div class="text-sm text-red-600">+5 poin</div>
+                            </button>
+                            <button onclick="addViolation('Mengganggu Kelas', 4)" class="bg-purple-100 hover:bg-purple-200 border-2 border-purple-300 rounded-lg p-4 text-left transition-all">
+                                <div class="font-bold text-purple-800">🗣️ Mengganggu Kelas</div>
+                                <div class="text-sm text-purple-600">+4 poin</div>
+                            </button>
+                            <button onclick="addViolation('Merokok', 10)" class="bg-red-200 hover:bg-red-300 border-2 border-red-400 rounded-lg p-4 text-left transition-all">
+                                <div class="font-bold text-red-900">🚭 Merokok</div>
+                                <div class="text-sm text-red-700">+10 poin</div>
+                            </button>
+                            <button onclick="addViolation('Berkelahi', 15)" class="bg-red-300 hover:bg-red-400 border-2 border-red-500 rounded-lg p-4 text-left transition-all">
+                                <div class="font-bold text-red-900">👊 Berkelahi</div>
+                                <div class="text-sm text-red-800">+15 poin</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button onclick="logout()" class="w-full bg-gray-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-600 transition-colors">
+                        🚪 Keluar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weekly Recap Tab -->
+        <div id="recapSection" class="hidden">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Rekap Mingguan</h2>
+                
+                <div class="mb-6">
+                    <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+                        <h3 class="font-bold text-indigo-800 mb-2">📅 Periode: 1-7 Januari 2024</h3>
+                        <p class="text-indigo-600">Rekap otomatis setiap akhir minggu</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+                        <div class="text-3xl font-bold text-green-600">12</div>
+                        <div class="text-green-800 font-medium">Siswa Baik</div>
+                    </div>
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
+                        <div class="text-3xl font-bold text-yellow-600">5</div>
+                        <div class="text-yellow-800 font-medium">Siswa Peringatan</div>
+                    </div>
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
+                        <div class="text-3xl font-bold text-red-600">3</div>
+                        <div class="text-red-800 font-medium">Siswa Bermasalah</div>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Jenis Pelanggaran</th>
+                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Jumlah Kasus</th>
+                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Total Poin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">⏰ Terlambat</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center">8</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">16</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">📚 Tidak Mengerjakan PR</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center">5</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">15</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">👔 Tidak Berseragam</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center">3</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">15</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">🗣️ Mengganggu Kelas</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center">2</td>
+                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">8</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+            <div class="flex items-center space-x-2">
+                <span>✅</span>
+                <span id="successText">Poin berhasil ditambahkan!</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Student data storage
+        let studentData = {
+            'Ahmad Rizki': { class: 'XI IPA 1', points: 15 },
+            'Siti Nurhaliza': { class: 'X IPS 2', points: 5 },
+            'Budi Santoso': { class: 'XII IPA 3', points: 25 },
+            'Dewi Sartika': { class: 'XI IPS 1', points: 8 }
+        };
+
+        // Valid teacher codes
+        const teacherCodes = ['GURU123', 'ADMIN456'];
+
+        function showTab(tab) {
+            // Hide all sections
+            document.getElementById('publicSection').classList.add('hidden');
+            document.getElementById('teacherSection').classList.add('hidden');
+            document.getElementById('recapSection').classList.add('hidden');
+
+            // Remove active class from all tabs
+            document.getElementById('publicTab').classList.remove('bg-indigo-500', 'text-white');
+            document.getElementById('teacherTab').classList.remove('bg-indigo-500', 'text-white');
+            document.getElementById('recapTab').classList.remove('bg-indigo-500', 'text-white');
+            
+            document.getElementById('publicTab').classList.add('text-gray-600');
+            document.getElementById('teacherTab').classList.add('text-gray-600');
+            document.getElementById('recapTab').classList.add('text-gray-600');
+
+            // Show selected section and activate tab
+            if (tab === 'public') {
+                document.getElementById('publicSection').classList.remove('hidden');
+                document.getElementById('publicTab').classList.add('bg-indigo-500', 'text-white');
+                document.getElementById('publicTab').classList.remove('text-gray-600');
+            } else if (tab === 'teacher') {
+                document.getElementById('teacherSection').classList.remove('hidden');
+                document.getElementById('teacherTab').classList.add('bg-indigo-500', 'text-white');
+                document.getElementById('teacherTab').classList.remove('text-gray-600');
+            } else if (tab === 'recap') {
+                document.getElementById('recapSection').classList.remove('hidden');
+                document.getElementById('recapTab').classList.add('bg-indigo-500', 'text-white');
+                document.getElementById('recapTab').classList.remove('text-gray-600');
+            }
+        }
+
+        function verifyTeacher() {
+            const code = document.getElementById('teacherCode').value;
+            
+            if (teacherCodes.includes(code)) {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('teacherPanel').classList.remove('hidden');
+            } else {
+                alert('❌ Kode akses tidak valid! untuk demo.');
+            }
+        }
+
+        function logout() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('teacherPanel').classList.add('hidden');
+            document.getElementById('teacherCode').value = '';
+        }
+
+        function addViolation(violationType, points) {
+            const selectedStudent = document.getElementById('studentSelect').value;
+            
+            if (!selectedStudent) {
+                alert('⚠️ Silakan pilih siswa terlebih dahulu!');
+                return;
+            }
+
+            // Add points to student
+            studentData[selectedStudent].points += points;
+            
+            // Update table
+            updateStudentTable();
+            
+            // Show success message
+            showSuccessMessage(`Poin ${violationType} (+${points}) berhasil ditambahkan untuk ${selectedStudent}`);
+        }
+
+        function updateStudentTable() {
+            const tableBody = document.getElementById('studentTable');
+            tableBody.innerHTML = '';
+
+            Object.keys(studentData).forEach(name => {
+                const student = studentData[name];
+                const row = document.createElement('tr');
+                
+                let status, statusClass;
+                if (student.points <= 10) {
+                    status = 'Baik';
+                    statusClass = 'bg-green-100 text-green-800';
+                } else if (student.points <= 20) {
+                    status = 'Peringatan';
+                    statusClass = 'bg-yellow-100 text-yellow-800';
+                } else {
+                    status = 'Bermasalah';
+                    statusClass = 'bg-red-100 text-red-800';
+                }
+
+                let pointsColor;
+                if (student.points <= 10) pointsColor = 'text-green-600';
+                else if (student.points <= 20) pointsColor = 'text-orange-600';
+                else pointsColor = 'text-red-600';
+
+                row.innerHTML = `
+                    <td class="border border-gray-300 px-4 py-3">${name}</td>
+                    <td class="border border-gray-300 px-4 py-3">${student.class}</td>
+                    <td class="border border-gray-300 px-4 py-3 text-center font-bold ${pointsColor}">${student.points}</td>
+                    <td class="border border-gray-300 px-4 py-3 text-center">
+                        <span class="${statusClass} px-2 py-1 rounded-full text-sm">${status}</span>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        function showSuccessMessage(message) {
+            const successMessage = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            
+            successText.textContent = message;
+            successMessage.classList.remove('hidden');
+            successMessage.classList.add('pulse-animation');
+            
+            setTimeout(() => {
+                successMessage.classList.add('hidden');
+                successMessage.classList.remove('pulse-animation');
+            }, 3000);
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStudentTable();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98be59d7d481fdc5',t:'MTc2MDAxNzg2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
