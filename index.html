@@ -27,13 +27,11 @@
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-full">
     <div class="container mx-auto px-4 py-8">
-        <!-- Header -->
         <div class="text-center mb-8">
             <h1 class="text-4xl font-bold text-indigo-800 mb-2">📋 Forum Kedisiplinan</h1>
             <p class="text-gray-600">Sistem Monitoring Pelanggaran Siswa</p>
         </div>
 
-        <!-- Navigation Tabs -->
         <div class="flex justify-center mb-8">
             <div class="bg-white rounded-lg shadow-md p-1 flex">
                 <button onclick="showTab('public')" id="publicTab" class="px-6 py-2 rounded-md font-medium transition-all bg-indigo-500 text-white">
@@ -48,7 +46,6 @@
             </div>
         </div>
 
-        <!-- Public Data Tab -->
         <div id="publicSection" class="fade-in">
             <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Data Poin Pelanggaran Siswa</h2>
@@ -63,36 +60,11 @@
                             </tr>
                         </thead>
                         <tbody id="studentTable">
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">Krisnanda angga saputra</td>
-                                <td class="border border-gray-300 px-4 py-3">XI 1</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center font-bold text-orange-600">15</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center">
-                                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-sm">Peringatan</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">M. Afifudin</td>
-                                <td class="border border-gray-300 px-4 py-3">XI 1</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center font-bold text-green-600">5</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center">
-                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">Baik</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">M. dimas arif saifullah</td>
-                                <td class="border border-gray-300 px-4 py-3">XI 1</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center font-bold text-red-600">25</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center">
-                                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm">Bermasalah</span>
-                                </td>
-                            </tr>
-                        </tbody>
+                            </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Legend -->
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <h3 class="text-lg font-bold text-gray-800 mb-4">📋 Kategori Status</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -112,400 +84,6 @@
             </div>
         </div>
 
-        <!-- Teacher Access Tab -->
-        <div id="teacherSection" class="hidden">
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">🔐 Akses Guru</h2>
-                
-                <div id="loginForm" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Kode Akses Guru</label>
-                        <input type="password" id="teacherCode" placeholder="Masukkan kode akses" 
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                    </div>
-                    <button onclick="verifyTeacher()" class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
-                        🔓 Masuk
-                    </button>
-                    <p class="text-sm text-gray-500 text-center"> </p>
-                </div>
-
-                <div id="teacherPanel" class="hidden space-y-6">
-                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-                        <p class="text-green-800 font-medium">✅ Berhasil masuk sebagai guru</p>
-                    </div>
-
-                    <!-- Student Selection -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Siswa</label>
-                        <select id="studentSelect" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
-                            <option value="">-- Pilih Siswa --</option>
-                            <option value="Krisnanda angga saputra">Krisnanda angga saputra - XI 1</option>
-                            <option value="M. Afifudin">M. Afifudin - XI 1</option>
-                            <option value="M. dimas arif saifullah">M. dimas arif saifullah - XI 1</option>
-                        </select>
-                    </div>
-
-                    <!-- Violation Types -->
-                    <div>
-                        <h3 class="text-lg font-bold text-gray-800 mb-4">Jenis Pelanggaran</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button onclick="addViolation('Terlambat', 2)" class="bg-yellow-100 hover:bg-yellow-200 border-2 border-yellow-300 rounded-lg p-4 text-left transition-all">
-                                <div class="font-bold text-yellow-800">⏰ Terlambat</div>
-                                <div class="text-sm text-yellow-600">+2 poin</div>
-                            </button>
-                            <button onclick="addViolation('Tidak Mengerjakan PR', 3)" class="bg-orange-100 hover:bg-orange-200 border-2 border-orange-300 rounded-lg p-4 text-left transition-all">
-                                <div class="font-bold text-orange-800">📚 Tidak Mengerjakan PR</div>
-                                <div class="text-sm text-orange-600">+3 poin</div>
-                            </button>
-                            <button onclick="addViolation('Tidak Berseragam', 5)" class="bg-red-100 hover:bg-red-200 border-2 border-red-300 rounded-lg p-4 text-left transition-all">
-                                <div class="font-bold text-red-800">👔 Tidak Berseragam</div>
-                                <div class="text-sm text-red-600">+5 poin</div>
-                            </button>
-                            <button onclick="addViolation('Mengganggu Kelas', 4)" class="bg-purple-100 hover:bg-purple-200 border-2 border-purple-300 rounded-lg p-4 text-left transition-all">
-                                <div class="font-bold text-purple-800">🗣️ Mengganggu Kelas</div>
-                                <div class="text-sm text-purple-600">+4 poin</div>
-                            </button>
-                            <button onclick="addViolation('Merokok', 10)" class="bg-red-200 hover:bg-red-300 border-2 border-red-400 rounded-lg p-4 text-left transition-all">
-                                <div class="font-bold text-red-900">🚭 Merokok</div>
-                                <div class="text-sm text-red-700">+10 poin</div>
-                            </button>
-                            <button onclick="addViolation('Berkelahi', 15)" class="bg-red-300 hover:bg-red-400 border-2 border-red-500 rounded-lg p-4 text-left transition-all">
-                                <div class="font-bold text-red-900">👊 Berkelahi</div>
-                                <div class="text-sm text-red-800">+15 poin</div>
-                            </button>
-                        </div>
-                    </div>
-
-                    <button onclick="logout()" class="w-full bg-gray-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-600 transition-colors">
-                        🚪 Keluar
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Weekly Recap Tab -->
-        <div id="recapSection" class="hidden">
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Rekap Mingguan</h2>
-                
-                <div class="mb-6">
-                    <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
-                        <h3 class="font-bold text-indigo-800 mb-2">📅 Periode: 1-7 Januari 2024</h3>
-                        <p class="text-indigo-600">Rekap otomatis setiap akhir minggu</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
-                        <div class="text-3xl font-bold text-green-600">12</div>
-                        <div class="text-green-800 font-medium">Siswa Baik</div>
-                    </div>
-                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
-                        <div class="text-3xl font-bold text-yellow-600">5</div>
-                        <div class="text-yellow-800 font-medium">Siswa Peringatan</div>
-                    </div>
-                    <div class="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
-                        <div class="text-3xl font-bold text-red-600">3</div>
-                        <div class="text-red-800 font-medium">Siswa Bermasalah</div>
-                    </div>
-                </div>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full border-collapse">
-                        <thead>
-                            <tr class="bg-gray-50">
-                                <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Jenis Pelanggaran</th>
-                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Jumlah Kasus</th>
-                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Total Poin</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">⏰ Terlambat</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center">8</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">16</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">📚 Tidak Mengerjakan PR</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center">5</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">15</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">👔 Tidak Berseragam</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center">3</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">15</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">🗣️ Mengganggu Kelas</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center">2</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">8</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Success Message -->
-        <div id="successMessage" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
-            <div class="flex items-center space-x-2">
-                <span>✅</span>
-                <span id="successText">Poin berhasil ditambahkan!</span>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Student data storage
-        let studentData = {
-            'Krisnanda angga saputra': { class: 'XI 1', points: 0 },
-            'M. Afifudin': { class: 'XI 1', points: 0 },
-            'M. dimas arif saifullah': { class: 'XI 1', points: 0 },
-        };
-
-        // Valid teacher codes
-        const teacherCodes = ['SMANJA091025'];
-
-        function showTab(tab) {
-            // Hide all sections
-            document.getElementById('publicSection').classList.add('hidden');
-            document.getElementById('teacherSection').classList.add('hidden');
-            document.getElementById('recapSection').classList.add('hidden');
-
-            // Remove active class from all tabs
-            document.getElementById('publicTab').classList.remove('bg-indigo-500', 'text-white');
-            document.getElementById('teacherTab').classList.remove('bg-indigo-500', 'text-white');
-            document.getElementById('recapTab').classList.remove('bg-indigo-500', 'text-white');
-            
-            document.getElementById('publicTab').classList.add('text-gray-600');
-            document.getElementById('teacherTab').classList.add('text-gray-600');
-            document.getElementById('recapTab').classList.add('text-gray-600');
-
-            // Show selected section and activate tab
-            if (tab === 'public') {
-                document.getElementById('publicSection').classList.remove('hidden');
-                document.getElementById('publicTab').classList.add('bg-indigo-500', 'text-white');
-                document.getElementById('publicTab').classList.remove('text-gray-600');
-            } else if (tab === 'teacher') {
-                document.getElementById('teacherSection').classList.remove('hidden');
-                document.getElementById('teacherTab').classList.add('bg-indigo-500', 'text-white');
-                document.getElementById('teacherTab').classList.remove('text-gray-600');
-            } else if (tab === 'recap') {
-                document.getElementById('recapSection').classList.remove('hidden');
-                document.getElementById('recapTab').classList.add('bg-indigo-500', 'text-white');
-                document.getElementById('recapTab').classList.remove('text-gray-600');
-            }
-        }
-
-        function verifyTeacher() {
-            const code = document.getElementById('teacherCode').value;
-            
-            if (teacherCodes.includes(code)) {
-                document.getElementById('loginForm').classList.add('hidden');
-                document.getElementById('teacherPanel').classList.remove('hidden');
-            } else {
-                alert('❌ Kode akses tidak valid! Gunakan GURU123 atau ADMIN456 untuk demo.');
-            }
-        }
-
-        function logout() {
-            document.getElementById('loginForm').classList.remove('hidden');
-            document.getElementById('teacherPanel').classList.add('hidden');
-            document.getElementById('teacherCode').value = '';
-        }
-
-        function addViolation(violationType, points) {
-            const selectedStudent = document.getElementById('studentSelect').value;
-            
-            if (!selectedStudent) {
-                alert('⚠️ Silakan pilih siswa terlebih dahulu!');
-                return;
-            }
-
-            // Add points to student
-            studentData[selectedStudent].points += points;
-            
-            // Update table
-            updateStudentTable();
-            
-            // Show success message
-            showSuccessMessage(`Poin ${violationType} (+${points}) berhasil ditambahkan untuk ${selectedStudent}`);
-        }
-
-        function updateStudentTable() {
-            const tableBody = document.getElementById('studentTable');
-            tableBody.innerHTML = '';
-
-            Object.keys(studentData).forEach(name => {
-                const student = studentData[name];
-                const row = document.createElement('tr');
-                
-                let status, statusClass;
-                if (student.points <= 10) {
-                    status = 'Baik';
-                    statusClass = 'bg-green-100 text-green-800';
-                } else if (student.points <= 20) {
-                    status = 'Peringatan';
-                    statusClass = 'bg-yellow-100 text-yellow-800';
-                } else {
-                    status = 'Bermasalah';
-                    statusClass = 'bg-red-100 text-red-800';
-                }
-
-                let pointsColor;
-                if (student.points <= 10) pointsColor = 'text-green-600';
-                else if (student.points <= 20) pointsColor = 'text-orange-600';
-                else pointsColor = 'text-red-600';
-
-                row.innerHTML = `
-                    <td class="border border-gray-300 px-4 py-3">${name}</td>
-                    <td class="border border-gray-300 px-4 py-3">${student.class}</td>
-                    <td class="border border-gray-300 px-4 py-3 text-center font-bold ${pointsColor}">${student.points}</td>
-                    <td class="border border-gray-300 px-4 py-3 text-center">
-                        <span class="${statusClass} px-2 py-1 rounded-full text-sm">${status}</span>
-                    </td>
-                `;
-                
-                tableBody.appendChild(row);
-            });
-        }
-
-        function showSuccessMessage(message) {
-            const successMessage = document.getElementById('successMessage');
-            const successText = document.getElementById('successText');
-            
-            successText.textContent = message;
-            successMessage.classList.remove('hidden');
-            successMessage.classList.add('pulse-animation');
-            
-            setTimeout(() => {
-                successMessage.classList.add('hidden');
-                successMessage.classList.remove('pulse-animation');
-            }, 3000);
-        }
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            updateStudentTable();
-        });
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98be59d7d481fdc5',t:'MTc2MDAxNzg2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forum Kedisiplinan Sekolah</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            box-sizing: border-box;
-        }
-        .fade-in {
-            animation: fadeIn 0.3s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-    </style>
-</head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-full">
-    <div class="container mx-auto px-4 py-8">
-        <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-indigo-800 mb-2">📋 Forum Kedisiplinan</h1>
-            <p class="text-gray-600">Sistem Monitoring Pelanggaran Siswa</p>
-        </div>
-
-        <!-- Navigation Tabs -->
-        <div class="flex justify-center mb-8">
-            <div class="bg-white rounded-lg shadow-md p-1 flex">
-                <button onclick="showTab('public')" id="publicTab" class="px-6 py-2 rounded-md font-medium transition-all bg-indigo-500 text-white">
-                    👥 Data Publik
-                </button>
-                <button onclick="showTab('teacher')" id="teacherTab" class="px-6 py-2 rounded-md font-medium transition-all text-gray-600 hover:text-indigo-600">
-                    👨‍🏫 Akses Guru
-                </button>
-                <button onclick="showTab('recap')" id="recapTab" class="px-6 py-2 rounded-md font-medium transition-all text-gray-600 hover:text-indigo-600">
-                    📊 Rekap Mingguan
-                </button>
-            </div>
-        </div>
-
-        <!-- Public Data Tab -->
-        <div id="publicSection" class="fade-in">
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Data Poin Pelanggaran Siswa</h2>
-                <div class="overflow-x-auto">
-                    <table class="w-full border-collapse">
-                        <thead>
-                            <tr class="bg-indigo-50">
-                                <th class="border border-gray-300 px-4 py-3 text-left font-semibold text-indigo-800">Nama Siswa</th>
-                                <th class="border border-gray-300 px-4 py-3 text-left font-semibold text-indigo-800">Kelas</th>
-                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold text-indigo-800">Total Poin</th>
-                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold text-indigo-800">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="studentTable">
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">Krisnanda angga saputra</td>
-                                <td class="border border-gray-300 px-4 py-3">XI 1</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center font-bold text-orange-600">15</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center">
-                                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-sm">Peringatan</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">M. Afifudin</td>
-                                <td class="border border-gray-300 px-4 py-3">XI 1</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center font-bold text-green-600">5</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center">
-                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">Baik</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">M. dimas arif saifullah</td>
-                                <td class="border border-gray-300 px-4 py-3">XI 1</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center font-bold text-red-600">25</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center">
-                                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm">Bermasalah</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Legend -->
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-lg font-bold text-gray-800 mb-4">📋 Kategori Status</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="flex items-center space-x-2">
-                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Baik</span>
-                        <span class="text-gray-600">0-10 poin</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">Peringatan</span>
-                        <span class="text-gray-600">11-20 poin</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Bermasalah</span>
-                        <span class="text-gray-600">21+ poin</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Teacher Access Tab -->
         <div id="teacherSection" class="hidden">
             <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">🔐 Akses Guru</h2>
@@ -527,18 +105,13 @@
                         <p class="text-green-800 font-medium">✅ Berhasil masuk sebagai guru</p>
                     </div>
 
-                    <!-- Student Selection -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Siswa</label>
                         <select id="studentSelect" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                             <option value="">-- Pilih Siswa --</option>
-                            <option value="Krisnanda angga saputra">Krisnanda angga saputra - XI 1</option>
-                            <option value="M. Afifudin">M. Afifudin - XI 1</option>
-                            <option value="M. dimas arif saifullah">M. dimas arif saifullah - XI 1</option>
-                        </select>
+                            </select>
                     </div>
 
-                    <!-- Violation Types -->
                     <div>
                         <h3 class="text-lg font-bold text-gray-800 mb-4">Jenis Pelanggaran</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -576,7 +149,6 @@
             </div>
         </div>
 
-        <!-- Weekly Recap Tab -->
         <div id="recapSection" class="hidden">
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Rekap Mingguan</h2>
@@ -639,7 +211,6 @@
             </div>
         </div>
 
-        <!-- Success Message -->
         <div id="successMessage" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
             <div class="flex items-center space-x-2">
                 <span>✅</span>
@@ -650,11 +221,177 @@
 
     <script>
         // Student data storage
+        // Data ini dikonsolidasikan dari SEMUA file HTML yang Anda berikan
         let studentData = {
-            'Krisnanda angga saputra': { class: 'XI 1', points: 0 },
-            'M. Afifudin': { class: 'XI 1', points: 0 },
-            'M. dimas arif saifullah': { class: 'XI 1', points: 0 },
+            // Data from tableConvert.com_l8a37z.html (XI 1)
+            'ANGGI ARLIJANTI': { class: 'XI 1', points: 0 },
+            'ARDHONI UBAIDILLAH RIZKY': { class: 'XI 1', points: 0 },
+            'AYU WULANDARI': { class: 'XI 1', points: 0 },
+            'BILQIS AMIROH AZZAH ARIDAH': { class: 'XI 1', points: 0 },
+            'DEVINA ARDIANTI RAMADHANI': { class: 'XI 1', points: 0 },
+            'ELINDA NOVITA': { class: 'XI 1', points: 0 },
+            'KHOIROTUN NISA`': { class: 'XI 1', points: 0 },
+            'KRISNANDA ANGGA SAPUTRA': { class: 'XI 1', points: 0 },
+            'LAILATUL MAULIDA NAJA ZHICA': { class: 'XI 1', points: 0 },
+            'M. DIMAS ARIF SAIFULLAH': { class: 'XI 1', points: 0 },
+            'M. DITO FAHRUDIN': { class: 'XI 1', points: 0 },
+            'MAULUDIN DHOFA ERWIN SYAH': { class: 'XI 1', points: 0 },
+            'MUHAMMAD AFIFFUDIN': { class: 'XI 1', points: 0 },
+            'MUHAMMAD AZWAR ANAS NASRUDIN ': { class: 'XI 1', points: 0 },
+            'MUHAMMAD MUFLIH HASAN ANSHORI': { class: 'XI 1', points: 0 },
+            'MUNIFAH SANIA ANJANI': { class: 'XI 1', points: 0 },
+            'RINA OCTAVIANA': { class: 'XI 1', points: 0 },
+            'SAIFUN NISA`': { class: 'XI 1', points: 0 },
+            'SIRIN EL-MASSHOBAH': { class: 'XI 1', points: 0 },
+            'ZAHRA RAHMA PUTRI': { class: 'XI 1', points: 0 },
+            
+            // Data from tableConvert.com_yurjv8.html (XI 2)
+            'AE VITRA SEPTA RAMADHAN': { class: 'XI 2', points: 0 },
+            'AHMAD AZUMAR DIAZRA': { class: 'XI 2', points: 0 },
+            'ANINDYA PUTRI SALSABILA': { class: 'XI 2', points: 0 },
+            'ATHI\'NAJIYAN ROBBANI': { class: 'XI 2', points: 0 },
+            'ATQOL MUSIBIIN': { class: 'XI 2', points: 0 },
+            'AULIA AZZAHRO': { class: 'XI 2', points: 0 },
+            'DEVIN ISCA PUZAMIL': { class: 'XI 2', points: 0 },
+            'DINA AYU KURNIA': { class: 'XI 2', points: 0 },
+            'DURROTUL LAILI': { class: 'XI 2', points: 0 },
+            'FIVA LAILATUN NISFIYAH': { class: 'XI 2', points: 0 },
+            'HAIKAL ZIYAD AHMAD': { class: 'XI 2', points: 0 },
+            'HUSNAH RAMADANI': { class: 'XI 2', points: 0 },
+            'MAULUDIN DHOFA IRWAN SYAH': { class: 'XI 2', points: 0 },
+            'MUHAMMAD RADIT ALDIANSYAH': { class: 'XI 2', points: 0 },
+            'MUHAMMAD ROFIK': { class: 'XI 2', points: 0 },
+            'MUTIA SYAFITRI ROZI': { class: 'XI 2', points: 0 },
+            'NADHIFAH AULIYA PUTRI': { class: 'XI 2', points: 0 },
+            'NUR MAKAYLA RAHMADANI': { class: 'XI 2', points: 0 },
+            'NUUHATUN NABIILAH MABRUKHAH': { class: 'XI 2', points: 0 },
+            'RATRI PRAMUDITA': { class: 'XI 2', points: 0 },
+            'ROHMAH DWI SANGGARWATI': { class: 'XI 2', points: 0 },
+            'SITI UMIYATUS SHOLEHAH': { class: 'XI 2', points: 0 },
+            'ULFI DWI TAKWATI': { class: 'XI 2', points: 0 },
+            'UMMI ZAIDHAH': { class: 'XI 2', points: 0 },
+            'ZAENATUL MAR\'AH NOVIANTI': { class: 'XI 2', points: 0 },
+            'ZAKIYYAH YUNI MAULIDAH': { class: 'XI 2', points: 0 },
+            
+            // Data from tableConvert.com_tg2qs1.html (X 1)
+            'AHMAD PRAWIRO EDY': { class: 'X 1', points: 0 },
+            'AMELIA SEPTIA RAMADHANI': { class: 'X 1', points: 0 },
+            'ASRORI WALUYO': { class: 'X 1', points: 0 },
+            'BILQIS MALAKATUS SABA': { class: 'X 1', points: 0 },
+            'BRYLLIAN SENATRYA AKBAR': { class: 'X 1', points: 0 },
+            'DEVVAN LEONEL SYAIFUDDIN': { class: 'X 1', points: 0 },
+            'DITA AINUR RAMADHANI': { class: 'X 1', points: 0 },
+            'FATIMATUZZAHRO': { class: 'X 1', points: 0 },
+            'ISNA WARDA KHOIRIYAH': { class: 'X 1', points: 0 },
+            'M. NAILUL AUTHOR': { class: 'X 1', points: 0 },
+            'MUHAMMAD FAIQ ABDURROHMAN': { class: 'X 1', points: 0 },
+            'MUHAMMAD FIKRI MUBAROQ PUTRA': { class: 'X 1', points: 0 },
+            'M. KHOIRUL HADI': { class: 'X 1', points: 0 },
+            'MUHAMMAD ROMADHON MUBAROK': { class: 'X 1', points: 0 },
+            'NADHIFATUL LUTFIAH': { class: 'X 1', points: 0 },
+            'NADIA LUTHFIATUS SHOLIHAH': { class: 'X 1', points: 0 },
+            'NAJIYA KEISYA RAMADHANI': { class: 'X 1', points: 0 },
+            'NAJWA ZAHROTUL MUNA WIJAYA': { class: 'X 1', points: 0 },
+            'NAVELIA ALTHAFUNNISA\' AL CHUSAIN': { class: 'X 1', points: 0 },
+            'RIFDAH HANA ROCHMAH': { class: 'X 1', points: 0 },
+            'RIZKINA LAILA FITRI': { class: 'X 1', points: 0 },
+            'SAFIRA DARMAYANTI EKA OKTAFIANI': { class: 'X 1', points: 0 },
+            'SEFYA PUTRI RAMADHANI': { class: 'X 1', points: 0 },
+            'MUHAMMAD AZIZ FIRMANSYAH': { class: 'X 1', points: 0 },
+            
+            // Data from tableConvert.com_omp34l.html (X 2)
+            'ABD KOLIQ AL KIROM': { class: 'X 2', points: 0 },
+            'ABDULLAH ANAS': { class: 'X 2', points: 0 },
+            'AH. SIKHU ASRORI': { class: 'X 2', points: 0 },
+            'AHMAD MARVEL EARL VANCOUVER': { class: 'X 2', points: 0 },
+            'AIS FARIKHATUL QUDSIYYAH': { class: 'X 2', points: 0 },
+            'ASRIFATIN NIKMAH': { class: 'X 2', points: 0 },
+            'AVRILLA ANANTA SISILIA': { class: 'X 2', points: 0 },
+            'CATUR SETYO UTOMO': { class: 'X 2', points: 0 },
+            'HASNA IRAWATI': { class: 'X 2', points: 0 },
+            'HENI NUR HIDAYAH': { class: 'X 2', points: 0 },
+            'ISNAINI SHOFIYAH DZAKIROH': { class: 'X 2', points: 0 },
+            'KUMALA SARI': { class: 'X 2', points: 0 },
+            'LUNAILAH FITRIYANA': { class: 'X 2', points: 0 },
+            'M. ADAMIL AZFAR SAFWATULLAH': { class: 'X 2', points: 0 },
+            'M. ILZAMY PUTRA P': { class: 'X 2', points: 0 },
+            'M. VIRGA AUFAA ILHAMI': { class: 'X 2', points: 0 },
+            'MEGA INDAH WULANDARI': { class: 'X 2', points: 0 },
+            'MOH. MIFTAHUL BADAR': { class: 'X 2', points: 0 },
+            'MUHAMAD RIDHO AULIA ALIF ALAMSYAH': { class: 'X 2', points: 0 },
+            'MUHAMMAD ALFARISI SUTRISNO': { class: 'X 2', points: 0 },
+            'NOVITA SAFIRA PUTRI': { class: 'X 2', points: 0 },
+            'PUTRI AMIROTUL LATHIFAH': { class: 'X 2', points: 0 },
+            'RIKA AODYA FATMAWATI': { class: 'X 2', points: 0 },
+            'RIRIS NUR AULIA AZZAHRAH': { class: 'X 2', points: 0 },
+            'HIFZIN YASID AL SYA\'BANI': { class: 'X 2', points: 0 },
+            
+            // Data from tableConvert.com_5pz1b2.html (XII 1)
+            'AHMAD ALFARIFQY EL FATIH': { class: 'XII 1', points: 0 },
+            'AHMAD FAISAL ADI SAPUTRA': { class: 'XII 1', points: 0 },
+            'AHMAD KHARIM MUTATOHHIRIN': { class: 'XII 1', points: 0 },
+            'AJENG AYU SORAYA': { class: 'XII 1', points: 0 },
+            'AZKA NAURA': { class: 'XII 1', points: 0 },
+            'CHOIROTUN NI\'MAH': { class: 'XII 1', points: 0 },
+            'DIAN LAILATUL SAZKIA': { class: 'XII 1', points: 0 },
+            'DWI AMELIA ARYANI': { class: 'XII 1', points: 0 },
+            'ELVITA DWI RAHMA': { class: 'XII 1', points: 0 },
+            'FADHEA MIFTACH RIZKY ALIS TI\'ANAH': { class: 'XII 1', points: 0 },
+            'IQBAL ALIMUL FUAD': { class: 'XII 1', points: 0 },
+            'KHOIRUN NISA FEBRIANTI VALENTINA': { class: 'XII 1', points: 0 },
+            'KHOIRUNNISA\'': { class: 'XII 1', points: 0 },
+            'KHOLIFATUL LAILIYAH': { class: 'XII 1', points: 0 },
+            'KHOLILATUR ROHMANIYAH': { class: 'XII 1', points: 0 },
+            'LATIFATUL KHOFIFAH': { class: 'XII 1', points: 0 },
+            'MAULANA ZUHAD FATHURROHMAN': { class: 'XII 1', points: 0 },
+            'MOH. DIMAS FIRMANSYAH': { class: 'XII 1', points: 0 },
+            'MUHAMMAD NUZUL FADIL': { class: 'XII 1', points: 0 },
+            'NADIRA AFLAHAH ZAAHIROH': { class: 'XII 1', points: 0 },
+            'NAFIDATUS SAHIDA': { class: 'XII 1', points: 0 },
+            'NANDA AULIA MADJID': { class: 'XII 1', points: 0 },
+            'NAZIIHAH ROONA MARELLA': { class: 'XII 1', points: 0 },
+            'NUR FADLILAH': { class: 'XII 1', points: 0 },
+            'NUR SYAHRANI MAGHFIROH RAMADHANI': { class: 'XII 1', points: 0 },
+            'RISFANDI TRI ARDIANSYAH': { class: 'XII 1', points: 0 },
+            'RIZKY PUTRI AMEILIA DEWI': { class: 'XII 1', points: 0 },
+            'SITI ABIDAH ARDELIA': { class: 'XII 1', points: 0 },
+            'SITI ROIHATUS SHOLIHA': { class: 'XII 1', points: 0 },
+            'SYARIFAH ZAHARA': { class: 'XII 1', points: 0 },
+            'ZAHROTUL JANNAH': { class: 'XII 1', points: 0 },
+            'ZAURA ZAHARANI AULIA BILQIS': { class: 'XII 1', points: 0 },
+            'MOHAMMAD FADLIL AKBAR': { class: 'XII 1', points: 0 },
+            
+            // Data from tableConvert.com_u64gv1.html (XII 2)
+            'ABDULLAH HAMID AL-BASYARI': { class: 'XII 2', points: 0 },
+            'ADELLIA PUTRI RAMADHANI': { class: 'XII 2', points: 0 },
+            'AGNIYATUL MUTMA\'INNAH': { class: 'XII 2', points: 0 },
+            'AHMAD ZUSRIL DHINI ZAB': { class: 'XII 2', points: 0 },
+            'ALFIYYAH FEBRIANTI': { class: 'XII 2', points: 0 },
+            'AMIRA KHAIRUNNISA': { class: 'XII 2', points: 0 },
+            'AZZA WIRDANINGSIH': { class: 'XII 2', points: 0 },
+            'DEVINA AMELIA PUTRI': { class: 'XII 2', points: 0 },
+            'DINI NABILATUL AULIA': { class: 'XII 2', points: 0 },
+            'ENGGA AL MA\'ARIF': { class: 'XII 2', points: 0 },
+            'HILMY ABDULLAH NUR HAQIQI': { class: 'XII 2', points: 0 },
+            'MAYLA ALTHAFUNNISA\' AL CHUSAIN': { class: 'XII 2', points: 0 },
+            'MIFTAQUL AFSIYAH': { class: 'XII 2', points: 0 },
+            'MOH. KHOBDOTIR JABBAR': { class: 'XII 2', points: 0 },
+            'MOH. RIEF\'AN KHOIRON ROSICKY': { class: 'XII 2', points: 0 },
+            'MOH. RIZKI AGUS SAPUTRA': { class: 'XII 2', points: 0 },
+            'MUHAMMAD ALAWI': { class: 'XII 2', points: 0 },
+            'MUHAMMAD ALI HAIDAR RAMADLAN': { class: 'XII 2', points: 0 },
+            'MUHAMMAD DAFA AFRIYANTO': { class: 'XII 2', points: 0 },
+            'MUHAMMAD ZAKY MAULANA AQIL': { class: 'XII 2', points: 0 },
+            'NOVA AMELIA': { class: 'XII 2', points: 0 },
+            'QINARA SABILAL MILLAH': { class: 'XII 2', points: 0 },
+            'RIZKY INDRAWAN MAULANA': { class: 'XII 2', points: 0 },
+            'SITI NUR ASIYAH': { class: 'XII 2', points: 0 },
+            'TRI ALIF AKHMAD AFIANTO': { class: 'XII 2', points: 0 },
+            'WILDANIA HIKMATUL FARIKHA': { class: 'XII 2', points: 0 },
+            'ZULIYANA KHOIR': { class: 'XII 2', points: 0 },
+            'BILLQIES BAJROYEKTI MP.': { class: 'XII 2', points: 0 }
         };
+
 
         // Valid teacher codes
         const teacherCodes = ['GURU123', 'ADMIN456'];
@@ -728,8 +465,11 @@
         function updateStudentTable() {
             const tableBody = document.getElementById('studentTable');
             tableBody.innerHTML = '';
+            
+            // Urutkan nama siswa berdasarkan abjad
+            const sortedNames = Object.keys(studentData).sort();
 
-            Object.keys(studentData).forEach(name => {
+            sortedNames.forEach(name => {
                 const student = studentData[name];
                 const row = document.createElement('tr');
                 
@@ -762,6 +502,23 @@
                 tableBody.appendChild(row);
             });
         }
+        
+        // **FUNGSI BARU** untuk mengisi dropdown siswa secara dinamis
+        function populateStudentSelect() {
+            const select = document.getElementById('studentSelect');
+            select.innerHTML = '<option value="">-- Pilih Siswa --</option>'; // Hapus isi & tambahkan default
+
+            // Urutkan nama siswa berdasarkan abjad
+            const sortedNames = Object.keys(studentData).sort();
+
+            sortedNames.forEach(name => {
+                const student = studentData[name];
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = `${name} - ${student.class}`;
+                select.appendChild(option);
+            });
+        }
 
         function showSuccessMessage(message) {
             const successMessage = document.getElementById('successMessage');
@@ -780,7 +537,9 @@
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             updateStudentTable();
+            populateStudentSelect(); // Panggil fungsi baru saat halaman dimuat
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98be59d7d481fdc5',t:'MTc2MDAxNzg2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
+      
