@@ -49,6 +49,13 @@
         <div id="publicSection" class="fade-in">
             <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Data Poin Pelanggaran Siswa</h2>
+                
+                <div class="mb-4">
+                    <input type="text" id="searchInput" onkeyup="renderStudentTable()" 
+                           placeholder="Ketuk untuk mencari nama siswa..." 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                
                 <div class="overflow-x-auto">
                     <table class="w-full border-collapse">
                         <thead>
@@ -78,8 +85,7 @@
                     </div>
                     <div class="flex items-center space-x-2">
                         <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Bermasalah</span>
-                        <span class="text-gray-600">50+ poin</span>
-                    </div>
+                        <span class="text-gray-600">21+ poin</span> </div>
                 </div>
             </div>
         </div>
@@ -149,27 +155,27 @@
         </div>
 
         <div id="recapSection" class="hidden">
-            <div class="bg-white rounded-xl shadow-lg p-6">
+            <div id="recapContent" class="bg-white rounded-xl shadow-lg p-6">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Rekap Mingguan</h2>
                 
                 <div class="mb-6">
                     <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
-                        <h3 class="font-bold text-indigo-800 mb-2">📅 Periode: 1-7 November 2025</h3>
-                        <p class="text-indigo-600">Rekap otomatis setiap akhir minggu</p>
+                        <h3 class="font-bold text-indigo-800 mb-2">📅 Periode: 27 Okt - 2 Nov 2025</h3>
+                        <p class="text-indigo-600">Data diperbarui secara real-time</p>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                     <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
-                        <div class="text-3xl font-bold text-green-600"></div>
+                        <div id="recapBaik" class="text-3xl font-bold text-green-600">0</div>
                         <div class="text-green-800 font-medium">Siswa Baik</div>
                     </div>
                     <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
-                        <div class="text-3xl font-bold text-yellow-600"></div>
+                        <div id="recapPeringatan" class="text-3xl font-bold text-yellow-600">0</div>
                         <div class="text-yellow-800 font-medium">Siswa Peringatan</div>
                     </div>
                     <div class="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
-                        <div class="text-3xl font-bold text-red-600"></div>
+                        <div id="recapBermasalah" class="text-3xl font-bold text-red-600">0</div>
                         <div class="text-red-800 font-medium">Siswa Bermasalah</div>
                     </div>
                 </div>
@@ -186,28 +192,42 @@
                         <tbody>
                             <tr>
                                 <td class="border border-gray-300 px-4 py-3">⏰ Terlambat</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center">8</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">16</td>
+                                <td id="recapTerlambatJumlah" class="border border-gray-300 px-4 py-3 text-center">0</td>
+                                <td id="recapTerlambatPoin" class="border border-gray-300 px-4 py-3 text-center font-bold">0</td>
                             </tr>
                             <tr>
                                 <td class="border border-gray-300 px-4 py-3">📚 Tidak Mengerjakan PR</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center">5</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">15</td>
+                                <td id="recapPRJumlah" class="border border-gray-300 px-4 py-3 text-center">0</td>
+                                <td id="recapPRPoin" class="border border-gray-300 px-4 py-3 text-center font-bold">0</td>
                             </tr>
                             <tr>
                                 <td class="border border-gray-300 px-4 py-3">👔 Tidak Berseragam</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center">3</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">15</td>
+                                <td id="recapSeragamJumlah" class="border border-gray-300 px-4 py-3 text-center">0</td>
+                                <td id="recapSeragamPoin" class="border border-gray-300 px-4 py-3 text-center font-bold">0</td>
                             </tr>
                             <tr>
                                 <td class="border border-gray-300 px-4 py-3">🗣️ Mengganggu Kelas</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center">2</td>
-                                <td class="border border-gray-300 px-4 py-3 text-center font-bold">8</td>
+                                <td id="recapMenggangguJumlah" class="border border-gray-300 px-4 py-3 text-center">0</td>
+                                <td id="recapMenggangguPoin" class="border border-gray-300 px-4 py-3 text-center font-bold">0</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">🚭 Merokok</td>
+                                <td id="recapMerokokJumlah" class="border border-gray-300 px-4 py-3 text-center">0</td>
+                                <td id="recapMerokokPoin" class="border border-gray-300 px-4 py-3 text-center font-bold">0</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-3">👊 Berkelahi</td>
+                                <td id="recapBerkelahiJumlah" class="border border-gray-300 px-4 py-3 text-center">0</td>
+                                <td id="recapBerkelahiPoin" class="border border-gray-300 px-4 py-3 text-center font-bold">0</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+            
+            <button onclick="downloadRecap()" class="mt-6 w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                📥 Unduh Rekap (.doc)
+            </button>
         </div>
 
         <div id="successMessage" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
@@ -219,176 +239,189 @@
     </div>
 
     <script>
-        // Student data storage
-        // Data ini dikonsolidasikan dari SEMUA file HTML yang Anda berikan
+        // --- BARU: MODIFIKASI STRUKTUR DATA ---
+        // Menambahkan properti 'violations' untuk melacak setiap jenis pelanggaran
+        const createStudent = (className) => ({
+            class: className,
+            points: 0,
+            violations: {
+                'Terlambat': 0,
+                'Tidak Mengerjakan PR': 0,
+                'Tidak Berseragam': 0,
+                'Mengganggu Kelas': 0,
+                'Merokok': 0,
+                'Berkelahi': 0
+            }
+        });
+
         let studentData = {
             // Data from tableConvert.com_l8a37z.html (XI 1)
-            'ANGGI ARLIJANTI': { class: 'XI 1', points: 0 },
-            'ARDHONI UBAIDILLAH RIZKY': { class: 'XI 1', points: 0 },
-            'AYU WULANDARI': { class: 'XI 1', points: 0 },
-            'BILQIS AMIROH AZZAH ARIDAH': { class: 'XI 1', points: 0 },
-            'DEVINA ARDIANTI RAMADHANI': { class: 'XI 1', points: 0 },
-            'ELINDA NOVITA': { class: 'XI 1', points: 0 },
-            'KHOIROTUN NISA`': { class: 'XI 1', points: 0 },
-            'KRISNANDA ANGGA SAPUTRA': { class: 'XI 1', points: 0 },
-            'LAILATUL MAULIDA NAJA ZHICA': { class: 'XI 1', points: 0 },
-            'M. DIMAS ARIF SAIFULLAH': { class: 'XI 1', points: 0 },
-            'M. DITO FAHRUDIN': { class: 'XI 1', points: 0 },
-            'MAULUDIN DHOFA ERWIN SYAH': { class: 'XI 1', points: 0 },
-            'MUHAMMAD AFIFFUDIN': { class: 'XI 1', points: 0 },
-            'MUHAMMAD AZWAR ANAS NASRUDIN ': { class: 'XI 1', points: 0 },
-            'MUHAMMAD MUFLIH HASAN ANSHORI': { class: 'XI 1', points: 0 },
-            'MUNIFAH SANIA ANJANI': { class: 'XI 1', points: 0 },
-            'RINA OCTAVIANA': { class: 'XI 1', points: 0 },
-            'SAIFUN NISA`': { class: 'XI 1', points: 0 },
-            'SIRIN EL-MASSHOBAH': { class: 'XI 1', points: 0 },
-            'ZAHRA RAHMA PUTRI': { class: 'XI 1', points: 0 },
+            'ANGGI ARLIJANTI': createStudent('XI 1'),
+            'ARDHONI UBAIDILLAH RIZKY': createStudent('XI 1'),
+            'AYU WULANDARI': createStudent('XI 1'),
+            'BILQIS AMIROH AZZAH ARIDAH': createStudent('XI 1'),
+            'DEVINA ARDIANTI RAMADHANI': createStudent('XI 1'),
+            'ELINDA NOVITA': createStudent('XI 1'),
+            'KHOIROTUN NISA`': createStudent('XI 1'),
+            'KRISNANDA ANGGA SAPUTRA': createStudent('XI 1'),
+            'LAILATUL MAULIDA NAJA ZHICA': createStudent('XI 1'),
+            'M. DIMAS ARIF SAIFULLAH': createStudent('XI 1'),
+            'M. DITO FAHRUDIN': createStudent('XI 1'),
+            'MAULUDIN DHOFA ERWIN SYAH': createStudent('XI 1'),
+            'MUHAMMAD AFIFFUDIN': createStudent('XI 1'),
+            'MUHAMMAD AZWAR ANAS NASRUDIN ': createStudent('XI 1'),
+            'MUHAMMAD MUFLIH HASAN ANSHORI': createStudent('XI 1'),
+            'MUNIFAH SANIA ANJANI': createStudent('XI 1'),
+            'RINA OCTAVIANA': createStudent('XI 1'),
+            'SAIFUN NISA`': createStudent('XI 1'),
+            'SIRIN EL-MASSHOBAH': createStudent('XI 1'),
+            'ZAHRA RAHMA PUTRI': createStudent('XI 1'),
             
             // Data from tableConvert.com_yurjv8.html (XI 2)
-            'AE VITRA SEPTA RAMADHAN': { class: 'XI 2', points: 0 },
-            'AHMAD AZUMAR DIAZRA': { class: 'XI 2', points: 0 },
-            'ANINDYA PUTRI SALSABILA': { class: 'XI 2', points: 0 },
-            'ATHI\'NAJIYAN ROBBANI': { class: 'XI 2', points: 0 },
-            'ATQOL MUSIBIIN': { class: 'XI 2', points: 0 },
-            'AULIA AZZAHRO': { class: 'XI 2', points: 0 },
-            'DEVIN ISCA PUZAMIL': { class: 'XI 2', points: 0 },
-            'DINA AYU KURNIA': { class: 'XI 2', points: 0 },
-            'DURROTUL LAILI': { class: 'XI 2', points: 0 },
-            'FIVA LAILATUN NISFIYAH': { class: 'XI 2', points: 0 },
-            'HAIKAL ZIYAD AHMAD': { class: 'XI 2', points: 0 },
-            'HUSNAH RAMADANI': { class: 'XI 2', points: 0 },
-            'MAULUDIN DHOFA IRWAN SYAH': { class: 'XI 2', points: 0 },
-            'MUHAMMAD RADIT ALDIANSYAH': { class: 'XI 2', points: 0 },
-            'MUHAMMAD ROFIK': { class: 'XI 2', points: 0 },
-            'MUTIA SYAFITRI ROZI': { class: 'XI 2', points: 0 },
-            'NADHIFAH AULIYA PUTRI': { class: 'XI 2', points: 0 },
-            'NUR MAKAYLA RAHMADANI': { class: 'XI 2', points: 0 },
-            'NUUHATUN NABIILAH MABRUKHAH': { class: 'XI 2', points: 0 },
-            'RATRI PRAMUDITA': { class: 'XI 2', points: 0 },
-            'ROHMAH DWI SANGGARWATI': { class: 'XI 2', points: 0 },
-            'SITI UMIYATUS SHOLEHAH': { class: 'XI 2', points: 0 },
-            'ULFI DWI TAKWATI': { class: 'XI 2', points: 0 },
-            'UMMI ZAIDHAH': { class: 'XI 2', points: 0 },
-            'ZAENATUL MAR\'AH NOVIANTI': { class: 'XI 2', points: 0 },
-            'ZAKIYYAH YUNI MAULIDAH': { class: 'XI 2', points: 0 },
+            'AE VITRA SEPTA RAMADHAN': createStudent('XI 2'),
+            'AHMAD AZUMAR DIAZRA': createStudent('XI 2'),
+            'ANINDYA PUTRI SALSABILA': createStudent('XI 2'),
+            'ATHI\'NAJIYAN ROBBANI': createStudent('XI 2'),
+            'ATQOL MUSIBIIN': createStudent('XI 2'),
+            'AULIA AZZAHRO': createStudent('XI 2'),
+            'DEVIN ISCA PUZAMIL': createStudent('XI 2'),
+            'DINA AYU KURNIA': createStudent('XI 2'),
+            'DURROTUL LAILI': createStudent('XI 2'),
+            'FIVA LAILATUN NISFIYAH': createStudent('XI 2'),
+            'HAIKAL ZIYAD AHMAD': createStudent('XI 2'),
+            'HUSNAH RAMADANI': createStudent('XI 2'),
+            'MAULUDIN DHOFA IRWAN SYAH': createStudent('XI 2'),
+            'MUHAMMAD RADIT ALDIANSYAH': createStudent('XI 2'),
+            'MUHAMMAD ROFIK': createStudent('XI 2'),
+            'MUTIA SYAFITRI ROZI': createStudent('XI 2'),
+            'NADHIFAH AULIYA PUTRI': createStudent('XI 2'),
+            'NUR MAKAYLA RAHMADANI': createStudent('XI 2'),
+            'NUUHATUN NABIILAH MABRUKHAH': createStudent('XI 2'),
+            'RATRI PRAMUDITA': createStudent('XI 2'),
+            'ROHMAH DWI SANGGARWATI': createStudent('XI 2'),
+            'SITI UMIYATUS SHOLEHAH': createStudent('XI 2'),
+            'ULFI DWI TAKWATI': createStudent('XI 2'),
+            'UMMI ZAIDHAH': createStudent('XI 2'),
+            'ZAENATUL MAR\'AH NOVIANTI': createStudent('XI 2'),
+            'ZAKIYYAH YUNI MAULIDAH': createStudent('XI 2'),
             
             // Data from tableConvert.com_tg2qs1.html (X 1)
-            'AHMAD PRAWIRO EDY': { class: 'X 1', points: 0 },
-            'AMELIA SEPTIA RAMADHANI': { class: 'X 1', points: 0 },
-            'ASRORI WALUYO': { class: 'X 1', points: 0 },
-            'BILQIS MALAKATUS SABA': { class: 'X 1', points: 0 },
-            'BRYLLIAN SENATRYA AKBAR': { class: 'X 1', points: 0 },
-            'DEVVAN LEONEL SYAIFUDDIN': { class: 'X 1', points: 0 },
-            'DITA AINUR RAMADHANI': { class: 'X 1', points: 0 },
-            'FATIMATUZZAHRO': { class: 'X 1', points: 0 },
-            'ISNA WARDA KHOIRIYAH': { class: 'X 1', points: 0 },
-            'M. NAILUL AUTHOR': { class: 'X 1', points: 0 },
-            'MUHAMMAD FAIQ ABDURROHMAN': { class: 'X 1', points: 0 },
-            'MUHAMMAD FIKRI MUBAROQ PUTRA': { class: 'X 1', points: 0 },
-            'M. KHOIRUL HADI': { class: 'X 1', points: 0 },
-            'MUHAMMAD ROMADHON MUBAROK': { class: 'X 1', points: 0 },
-            'NADHIFATUL LUTFIAH': { class: 'X 1', points: 0 },
-            'NADIA LUTHFIATUS SHOLIHAH': { class: 'X 1', points: 0 },
-            'NAJIYA KEISYA RAMADHANI': { class: 'X 1', points: 0 },
-            'NAJWA ZAHROTUL MUNA WIJAYA': { class: 'X 1', points: 0 },
-            'NAVELIA ALTHAFUNNISA\' AL CHUSAIN': { class: 'X 1', points: 0 },
-            'RIFDAH HANA ROCHMAH': { class: 'X 1', points: 0 },
-            'RIZKINA LAILA FITRI': { class: 'X 1', points: 0 },
-            'SAFIRA DARMAYANTI EKA OKTAFIANI': { class: 'X 1', points: 0 },
-            'SEFYA PUTRI RAMADHANI': { class: 'X 1', points: 0 },
-            'MUHAMMAD AZIZ FIRMANSYAH': { class: 'X 1', points: 0 },
+            'AHMAD PRAWIRO EDY': createStudent('X 1'),
+            'AMELIA SEPTIA RAMADHANI': createStudent('X 1'),
+            'ASRORI WALUYO': createStudent('X 1'),
+            'BILQIS MALAKATUS SABA': createStudent('X 1'),
+            'BRYLLIAN SENATRYA AKBAR': createStudent('X 1'),
+            'DEVVAN LEONEL SYAIFUDDIN': createStudent('X 1'),
+            'DITA AINUR RAMADHANI': createStudent('X 1'),
+            'FATIMATUZZAHRO': createStudent('X 1'),
+            'ISNA WARDA KHOIRIYAH': createStudent('X 1'),
+            'M. NAILUL AUTHOR': createStudent('X 1'),
+            'MUHAMMAD FAIQ ABDURROHMAN': createStudent('X 1'),
+            'MUHAMMAD FIKRI MUBAROQ PUTRA': createStudent('X 1'),
+            'M. KHOIRUL HADI': createStudent('X 1'),
+            'MUHAMMAD ROMADHON MUBAROK': createStudent('X 1'),
+            'NADHIFATUL LUTFIAH': createStudent('X 1'),
+            'NADIA LUTHFIATUS SHOLIHAH': createStudent('X 1'),
+            'NAJIYA KEISYA RAMADHANI': createStudent('X 1'),
+            'NAJWA ZAHROTUL MUNA WIJAYA': createStudent('X 1'),
+            'NAVELIA ALTHAFUNNISA\' AL CHUSAIN': createStudent('X 1'),
+            'RIFDAH HANA ROCHMAH': createStudent('X 1'),
+            'RIZKINA LAILA FITRI': createStudent('X 1'),
+            'SAFIRA DARMAYANTI EKA OKTAFIANI': createStudent('X 1'),
+            'SEFYA PUTRI RAMADHANI': createStudent('X 1'),
+            'MUHAMMAD AZIZ FIRMANSYAH': createStudent('X 1'),
             
             // Data from tableConvert.com_omp34l.html (X 2)
-            'ABD KOLIQ AL KIROM': { class: 'X 2', points: 0 },
-            'ABDULLAH ANAS': { class: 'X 2', points: 0 },
-            'AH. SIKHU ASRORI': { class: 'X 2', points: 0 },
-            'AHMAD MARVEL EARL VANCOUVER': { class: 'X 2', points: 0 },
-            'AIS FARIKHATUL QUDSIYYAH': { class: 'X 2', points: 0 },
-            'ASRIFATIN NIKMAH': { class: 'X 2', points: 0 },
-            'AVRILLA ANANTA SISILIA': { class: 'X 2', points: 0 },
-            'CATUR SETYO UTOMO': { class: 'X 2', points: 0 },
-            'HASNA IRAWATI': { class: 'X 2', points: 0 },
-            'HENI NUR HIDAYAH': { class: 'X 2', points: 0 },
-            'ISNAINI SHOFIYAH DZAKIROH': { class: 'X 2', points: 0 },
-            'KUMALA SARI': { class: 'X 2', points: 0 },
-            'LUNAILAH FITRIYANA': { class: 'X 2', points: 0 },
-            'M. ADAMIL AZFAR SAFWATULLAH': { class: 'X 2', points: 0 },
-            'M. ILZAMY PUTRA P': { class: 'X 2', points: 0 },
-            'M. VIRGA AUFAA ILHAMI': { class: 'X 2', points: 0 },
-            'MEGA INDAH WULANDARI': { class: 'X 2', points: 0 },
-            'MOH. MIFTAHUL BADAR': { class: 'X 2', points: 0 },
-            'MUHAMAD RIDHO AULIA ALIF ALAMSYAH': { class: 'X 2', points: 0 },
-            'MUHAMMAD ALFARISI SUTRISNO': { class: 'X 2', points: 0 },
-            'NOVITA SAFIRA PUTRI': { class: 'X 2', points: 0 },
-            'PUTRI AMIROTUL LATHIFAH': { class: 'X 2', points: 0 },
-            'RIKA AODYA FATMAWATI': { class: 'X 2', points: 0 },
-            'RIRIS NUR AULIA AZZAHRAH': { class: 'X 2', points: 0 },
-            'HIFZIN YASID AL SYA\'BANI': { class: 'X 2', points: 0 },
+            'ABD KOLIQ AL KIROM': createStudent('X 2'),
+            'ABDULLAH ANAS': createStudent('X 2'),
+            'AH. SIKHU ASRORI': createStudent('X 2'),
+            'AHMAD MARVEL EARL VANCOUVER': createStudent('X 2'),
+            'AIS FARIKHATUL QUDSIYYAH': createStudent('X 2'),
+            'ASRIFATIN NIKMAH': createStudent('X 2'),
+            'AVRILLA ANANTA SISILIA': createStudent('X 2'),
+            'CATUR SETYO UTOMO': createStudent('X 2'),
+            'HASNA IRAWATI': createStudent('X 2'),
+            'HENI NUR HIDAYAH': createStudent('X 2'),
+            'ISNAINI SHOFIYAH DZAKIROH': createStudent('X 2'),
+            'KUMALA SARI': createStudent('X 2'),
+            'LUNAILAH FITRIYANA': createStudent('X 2'),
+            'M. ADAMIL AZFAR SAFWATULLAH': createStudent('X 2'),
+            'M. ILZAMY PUTRA P': createStudent('X 2'),
+            'M. VIRGA AUFAA ILHAMI': createStudent('X 2'),
+            'MEGA INDAH WULANDARI': createStudent('X 2'),
+            'MOH. MIFTAHUL BADAR': createStudent('X 2'),
+            'MUHAMAD RIDHO AULIA ALIF ALAMSYAH': createStudent('X 2'),
+            'MUHAMMAD ALFARISI SUTRISNO': createStudent('X 2'),
+            'NOVITA SAFIRA PUTRI': createStudent('X 2'),
+            'PUTRI AMIROTUL LATHIFAH': createStudent('X 2'),
+            'RIKA AODYA FATMAWATI': createStudent('X 2'),
+            'RIRIS NUR AULIA AZZAHRAH': createStudent('X 2'),
+            'HIFZIN YASID AL SYA\'BANI': createStudent('X 2'),
             
             // Data from tableConvert.com_5pz1b2.html (XII 1)
-            'AHMAD ALFARIFQY EL FATIH': { class: 'XII 1', points: 0 },
-            'AHMAD FAISAL ADI SAPUTRA': { class: 'XII 1', points: 0 },
-            'AHMAD KHARIM MUTATOHHIRIN': { class: 'XII 1', points: 0 },
-            'AJENG AYU SORAYA': { class: 'XII 1', points: 0 },
-            'AZKA NAURA': { class: 'XII 1', points: 0 },
-            'CHOIROTUN NI\'MAH': { class: 'XII 1', points: 0 },
-            'DIAN LAILATUL SAZKIA': { class: 'XII 1', points: 0 },
-            'DWI AMELIA ARYANI': { class: 'XII 1', points: 0 },
-            'ELVITA DWI RAHMA': { class: 'XII 1', points: 0 },
-            'FADHEA MIFTACH RIZKY ALIS TI\'ANAH': { class: 'XII 1', points: 0 },
-            'IQBAL ALIMUL FUAD': { class: 'XII 1', points: 0 },
-            'KHOIRUN NISA FEBRIANTI VALENTINA': { class: 'XII 1', points: 0 },
-            'KHOIRUNNISA\'': { class: 'XII 1', points: 0 },
-            'KHOLIFATUL LAILIYAH': { class: 'XII 1', points: 0 },
-            'KHOLILATUR ROHMANIYAH': { class: 'XII 1', points: 0 },
-            'LATIFATUL KHOFIFAH': { class: 'XII 1', points: 0 },
-            'MAULANA ZUHAD FATHURROHMAN': { class: 'XII 1', points: 0 },
-            'MOH. DIMAS FIRMANSYAH': { class: 'XII 1', points: 0 },
-            'MUHAMMAD NUZUL FADIL': { class: 'XII 1', points: 0 },
-            'NADIRA AFLAHAH ZAAHIROH': { class: 'XII 1', points: 0 },
-            'NAFIDATUS SAHIDA': { class: 'XII 1', points: 0 },
-            'NANDA AULIA MADJID': { class: 'XII 1', points: 0 },
-            'NAZIIHAH ROONA MARELLA': { class: 'XII 1', points: 0 },
-            'NUR FADLILAH': { class: 'XII 1', points: 0 },
-            'NUR SYAHRANI MAGHFIROH RAMADHANI': { class: 'XII 1', points: 0 },
-            'RISFANDI TRI ARDIANSYAH': { class: 'XII 1', points: 0 },
-            'RIZKY PUTRI AMEILIA DEWI': { class: 'XII 1', points: 0 },
-            'SITI ABIDAH ARDELIA': { class: 'XII 1', points: 0 },
-            'SITI ROIHATUS SHOLIHA': { class: 'XII 1', points: 0 },
-            'SYARIFAH ZAHARA': { class: 'XII 1', points: 0 },
-            'ZAHROTUL JANNAH': { class: 'XII 1', points: 0 },
-            'ZAURA ZAHARANI AULIA BILQIS': { class: 'XII 1', points: 0 },
-            'MOHAMMAD FADLIL AKBAR': { class: 'XII 1', points: 0 },
+            'AHMAD ALFARIFQY EL FATIH': createStudent('XII 1'),
+            'AHMAD FAISAL ADI SAPUTRA': createStudent('XII 1'),
+            'AHMAD KHARIM MUTATOHHIRIN': createStudent('XII 1'),
+            'AJENG AYU SORAYA': createStudent('XII 1'),
+            'AZKA NAURA': createStudent('XII 1'),
+            'CHOIROTUN NI\'MAH': createStudent('XII 1'),
+            'DIAN LAILATUL SAZKIA': createStudent('XII 1'),
+            'DWI AMELIA ARYANI': createStudent('XII 1'),
+            'ELVITA DWI RAHMA': createStudent('XII 1'),
+            'FADHEA MIFTACH RIZKY ALIS TI\'ANAH': createStudent('XII 1'),
+            'IQBAL ALIMUL FUAD': createStudent('XII 1'),
+            'KHOIRUN NISA FEBRIANTI VALENTINA': createStudent('XII 1'),
+            'KHOIRUNNISA\'': createStudent('XII 1'),
+            'KHOLIFATUL LAILIYAH': createStudent('XII 1'),
+            'KHOLILATUR ROHMANIYAH': createStudent('XII 1'),
+            'LATIFATUL KHOFIFAH': createStudent('XII 1'),
+            'MAULANA ZUHAD FATHURROHMAN': createStudent('XII 1'),
+            'MOH. DIMAS FIRMANSYAH': createStudent('XII 1'),
+            'MUHAMMAD NUZUL FADIL': createStudent('XII 1'),
+            'NADIRA AFLAHAH ZAAHIROH': createStudent('XII 1'),
+            'NAFIDATUS SAHIDA': createStudent('XII 1'),
+            'NANDA AULIA MADJID': createStudent('XII 1'),
+            'NAZIIHAH ROONA MARELLA': createStudent('XII 1'),
+            'NUR FADLILAH': createStudent('XII 1'),
+            'NUR SYAHRANI MAGHFIROH RAMADHANI': createStudent('XII 1'),
+            'RISFANDI TRI ARDIANSYAH': createStudent('XII 1'),
+            'RIZKY PUTRI AMEILIA DEWI': createStudent('XII 1'),
+            'SITI ABIDAH ARDELIA': createStudent('XII 1'),
+            'SITI ROIHATUS SHOLIHA': createStudent('XII 1'),
+            'SYARIFAH ZAHARA': createStudent('XII 1'),
+            'ZAHROTUL JANNAH': createStudent('XII 1'),
+            'ZAURA ZAHARANI AULIA BILQIS': createStudent('XII 1'),
+            'MOHAMMAD FADLIL AKBAR': createStudent('XII 1'),
             
             // Data from tableConvert.com_u64gv1.html (XII 2)
-            'ABDULLAH HAMID AL-BASYARI': { class: 'XII 2', points: 0 },
-            'ADELLIA PUTRI RAMADHANI': { class: 'XII 2', points: 0 },
-            'AGNIYATUL MUTMA\'INNAH': { class: 'XII 2', points: 0 },
-            'AHMAD ZUSRIL DHINI ZAB': { class: 'XII 2', points: 0 },
-            'ALFIYYAH FEBRIANTI': { class: 'XII 2', points: 0 },
-            'AMIRA KHAIRUNNISA': { class: 'XII 2', points: 0 },
-            'AZZA WIRDANINGSIH': { class: 'XII 2', points: 0 },
-            'DEVINA AMELIA PUTRI': { class: 'XII 2', points: 0 },
-            'DINI NABILATUL AULIA': { class: 'XII 2', points: 0 },
-            'ENGGA AL MA\'ARIF': { class: 'XII 2', points: 0 },
-            'HILMY ABDULLAH NUR HAQIQI': { class: 'XII 2', points: 0 },
-            'MAYLA ALTHAFUNNISA\' AL CHUSAIN': { class: 'XII 2', points: 0 },
-            'MIFTAQUL AFSIYAH': { class: 'XII 2', points: 0 },
-            'MOH. KHOBDOTIR JABBAR': { class: 'XII 2', points: 0 },
-            'MOH. RIEF\'AN KHOIRON ROSICKY': { class: 'XII 2', points: 0 },
-            'MOH. RIZKI AGUS SAPUTRA': { class: 'XII 2', points: 0 },
-            'MUHAMMAD ALAWI': { class: 'XII 2', points: 0 },
-            'MUHAMMAD ALI HAIDAR RAMADLAN': { class: 'XII 2', points: 0 },
-            'MUHAMMAD DAFA AFRIYANTO': { class: 'XII 2', points: 0 },
-            'MUHAMMAD ZAKY MAULANA AQIL': { class: 'XII 2', points: 0 },
-            'NOVA AMELIA': { class: 'XII 2', points: 0 },
-            'QINARA SABILAL MILLAH': { class: 'XII 2', points: 0 },
-            'RIZKY INDRAWAN MAULANA': { class: 'XII 2', points: 0 },
-            'SITI NUR ASIYAH': { class: 'XII 2', points: 0 },
-            'TRI ALIF AKHMAD AFIANTO': { class: 'XII 2', points: 0 },
-            'WILDANIA HIKMATUL FARIKHA': { class: 'XII 2', points: 0 },
-            'ZULIYANA KHOIR': { class: 'XII 2', points: 0 },
-            'BILLQIES BAJROYEKTI MP.': { class: 'XII 2', points: 0 }
+            'ABDULLAH HAMID AL-BASYARI': createStudent('XII 2'),
+            'ADELLIA PUTRI RAMADHANI': createStudent('XII 2'),
+            'AGNIYATUL MUTMA\'INNAH': createStudent('XII 2'),
+            'AHMAD ZUSRIL DHINI ZAB': createStudent('XII 2'),
+            'ALFIYYAH FEBRIANTI': createStudent('XII 2'),
+            'AMIRA KHAIRUNNISA': createStudent('XII 2'),
+            'AZZA WIRDANINGSIH': createStudent('XII 2'),
+            'DEVINA AMELIA PUTRI': createStudent('XII 2'),
+            'DINI NABILATUL AULIA': createStudent('XII 2'),
+            'ENGGA AL MA\'ARIF': createStudent('XII 2'),
+            'HILMY ABDULLAH NUR HAQIQI': createStudent('XII 2'),
+            'MAYLA ALTHAFUNNISA\' AL CHUSAIN': createStudent('XII 2'),
+            'MIFTAQUL AFSIYAH': createStudent('XII 2'),
+            'MOH. KHOBDOTIR JABBAR': createStudent('XII 2'),
+            'MOH. RIEF\'AN KHOIRON ROSICKY': createStudent('XII 2'),
+            'MOH. RIZKI AGUS SAPUTRA': createStudent('XII 2'),
+            'MUHAMMAD ALAWI': createStudent('XII 2'),
+            'MUHAMMAD ALI HAIDAR RAMADLAN': createStudent('XII 2'),
+            'MUHAMMAD DAFA AFRIYANTO': createStudent('XII 2'),
+            'MUHAMMAD ZAKY MAULANA AQIL': createStudent('XII 2'),
+            'NOVA AMELIA': createStudent('XII 2'),
+            'QINARA SABILAL MILLAH': createStudent('XII 2'),
+            'RIZKY INDRAWAN MAULANA': createStudent('XII 2'),
+            'SITI NUR ASIYAH': createStudent('XII 2'),
+            'TRI ALIF AKHMAD AFIANTO': createStudent('XII 2'),
+            'WILDANIA HIKMATUL FARIKHA': createStudent('XII 2'),
+            'ZULIYANA KHOIR': createStudent('XII 2'),
+            'BILLQIES BAJROYEKTI MP.': createStudent('XII 2')
         };
 
 
@@ -423,6 +456,8 @@
                 document.getElementById('recapSection').classList.remove('hidden');
                 document.getElementById('recapTab').classList.add('bg-indigo-500', 'text-white');
                 document.getElementById('recapTab').classList.remove('text-gray-600');
+                // BARU: Perbarui rekap setiap kali tab dibuka
+                updateRecap();
             }
         }
 
@@ -433,7 +468,7 @@
                 document.getElementById('loginForm').classList.add('hidden');
                 document.getElementById('teacherPanel').classList.remove('hidden');
             } else {
-                alert('❌ Kode akses tidak valid! untuk demo.');
+                alert('❌ Kode akses tidak valid! (Demo: SMANJAOKE123)');
             }
         }
 
@@ -443,6 +478,7 @@
             document.getElementById('teacherCode').value = '';
         }
 
+        // --- BARU: MODIFIKASI FUNGSI addViolation ---
         function addViolation(violationType, points) {
             const selectedStudent = document.getElementById('studentSelect').value;
             
@@ -453,56 +489,108 @@
 
             // Add points to student
             studentData[selectedStudent].points += points;
+            // BARU: Lacak jenis pelanggaran
+            studentData[selectedStudent].violations[violationType]++;
             
             // Update table
-            updateStudentTable();
+            renderStudentTable(); // Menggunakan nama fungsi baru
+            
+            // BARU: Update rekap secara real-time
+            updateRecap();
             
             // Show success message
             showSuccessMessage(`Poin ${violationType} (+${points}) berhasil ditambahkan untuk ${selectedStudent}`);
         }
 
-        function updateStudentTable() {
+        // --- BARU: FUNGSI renderStudentTable (Menggantikan updateStudentTable) ---
+        // Fungsi ini sekarang menangani pencarian dan pengelompokan
+        function renderStudentTable() {
+            const filter = document.getElementById('searchInput').value.toUpperCase();
             const tableBody = document.getElementById('studentTable');
             tableBody.innerHTML = '';
-            
-            // Urutkan nama siswa berdasarkan abjad
-            const sortedNames = Object.keys(studentData).sort();
 
-            sortedNames.forEach(name => {
+            // 1. Kelompokkan siswa berdasarkan kelas
+            const groupedStudents = {};
+            Object.keys(studentData).forEach(name => {
                 const student = studentData[name];
-                const row = document.createElement('tr');
-                
-                let status, statusClass;
-                if (student.points <= 10) {
-                    status = 'Baik';
-                    statusClass = 'bg-green-100 text-green-800';
-                } else if (student.points <= 20) {
-                    status = 'Peringatan';
-                    statusClass = 'bg-yellow-100 text-yellow-800';
-                } else {
-                    status = 'Bermasalah';
-                    statusClass = 'bg-red-100 text-red-800';
+                if (!groupedStudents[student.class]) {
+                    groupedStudents[student.class] = [];
                 }
+                groupedStudents[student.class].push({ name, ...student });
+            });
 
-                let pointsColor;
-                if (student.points <= 10) pointsColor = 'text-green-600';
-                else if (student.points <= 20) pointsColor = 'text-orange-600';
-                else pointsColor = 'text-red-600';
-
-                row.innerHTML = `
-                    <td class="border border-gray-300 px-4 py-3">${name}</td>
-                    <td class="border border-gray-300 px-4 py-3">${student.class}</td>
-                    <td class="border border-gray-300 px-4 py-3 text-center font-bold ${pointsColor}">${student.points}</td>
-                    <td class="border border-gray-300 px-4 py-3 text-center">
-                        <span class="${statusClass} px-2 py-1 rounded-full text-sm">${status}</span>
-                    </td>
-                `;
+            // 2. Urutkan kelas (X, XI, XII)
+            const classOrder = {'X': 1, 'XI': 2, 'XII': 3};
+            const sortedClasses = Object.keys(groupedStudents).sort((a, b) => {
+                const [prefixA] = a.split(' ');
+                const [prefixB] = b.split(' ');
                 
-                tableBody.appendChild(row);
+                const orderA = classOrder[prefixA] || 99;
+                const orderB = classOrder[prefixB] || 99;
+
+                if (orderA !== orderB) {
+                    return orderA - orderB;
+                }
+                return a.localeCompare(b); // Urutkan sub-kelas (misal: X 1 vs X 2)
+            });
+
+            // 3. Render tabel
+            sortedClasses.forEach(className => {
+                // Tambahkan baris header kelas
+                const classHeaderRow = document.createElement('tr');
+                classHeaderRow.classList.add('bg-indigo-100', 'font-bold');
+                classHeaderRow.innerHTML = `
+                    <td colspan="4" class="border border-gray-300 px-4 py-3 text-indigo-900">${className}</td>
+                `;
+                tableBody.appendChild(classHeaderRow);
+
+                // Urutkan siswa dalam kelas berdasarkan nama
+                const studentsInClass = groupedStudents[className].sort((a, b) => a.name.localeCompare(b.name));
+
+                let studentsFound = 0;
+                studentsInClass.forEach(student => {
+                    // Terapkan filter pencarian
+                    if (student.name.toUpperCase().indexOf(filter) > -1) {
+                        studentsFound++;
+                        const row = document.createElement('tr');
+                        
+                        let status, statusClass;
+                        if (student.points <= 10) {
+                            status = 'Baik';
+                            statusClass = 'bg-green-100 text-green-800';
+                        } else if (student.points <= 20) {
+                            status = 'Peringatan';
+                            statusClass = 'bg-yellow-100 text-yellow-800';
+                        } else {
+                            status = 'Bermasalah';
+                            statusClass = 'bg-red-100 text-red-800';
+                        }
+
+                        let pointsColor;
+                        if (student.points <= 10) pointsColor = 'text-green-600';
+                        else if (student.points <= 20) pointsColor = 'text-orange-600';
+                        else pointsColor = 'text-red-600';
+
+                        row.innerHTML = `
+                            <td class="border border-gray-300 px-4 py-3">${student.name}</td>
+                            <td class="border border-gray-300 px-4 py-3">${student.class}</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center font-bold ${pointsColor}">${student.points}</td>
+                            <td class="border border-gray-300 px-4 py-3 text-center">
+                                <span class="${statusClass} px-2 py-1 rounded-full text-sm">${status}</span>
+                            </td>
+                        `;
+                        
+                        tableBody.appendChild(row);
+                    }
+                });
+
+                // Sembunyikan header kelas jika tidak ada siswa yang cocok
+                if (studentsFound === 0 && filter.length > 0) {
+                    classHeaderRow.classList.add('hidden');
+                }
             });
         }
         
-        // **FUNGSI BARU** untuk mengisi dropdown siswa secara dinamis
         function populateStudentSelect() {
             const select = document.getElementById('studentSelect');
             select.innerHTML = '<option value="">-- Pilih Siswa --</option>'; // Hapus isi & tambahkan default
@@ -533,12 +621,114 @@
             }, 3000);
         }
 
+        // --- FUNGSI BARU: updateRecap ---
+        // Menghitung dan menampilkan data rekapitulasi secara dinamis
+        function updateRecap() {
+            let totalBaik = 0;
+            let totalPeringatan = 0;
+            let totalBermasalah = 0;
+
+            const recapTotals = {
+                'Terlambat': { count: 0, points: 0, pointValue: 2 },
+                'Tidak Mengerjakan PR': { count: 0, points: 0, pointValue: 3 },
+                'Mengganggu Kelas': { count: 0, points: 0, pointValue: 4 },
+                'Tidak Berseragam': { count: 0, points: 0, pointValue: 5 },
+                'Merokok': { count: 0, points: 0, pointValue: 10 },
+                'Berkelahi': { count: 0, points: 0, pointValue: 15 }
+            };
+
+            // 1. Hitung total dari semua siswa
+            Object.values(studentData).forEach(student => {
+                // Hitung status
+                if (student.points === 0) {
+                    // Tetap dihitung "Baik" meskipun 0 poin
+                    totalBaik++;
+                } else if (student.points <= 10) {
+                    totalBaik++;
+                } else if (student.points <= 20) {
+                    totalPeringatan++;
+                } else {
+                    totalBermasalah++;
+                }
+
+                // Hitung total pelanggaran
+                Object.keys(student.violations).forEach(type => {
+                    const count = student.violations[type];
+                    if (count > 0) {
+                        recapTotals[type].count += count;
+                        recapTotals[type].points += count * recapTotals[type].pointValue;
+                    }
+                });
+            });
+
+            // 2. Terapkan total ke HTML
+            // Status siswa
+            document.getElementById('recapBaik').textContent = totalBaik;
+            document.getElementById('recapPeringatan').textContent = totalPeringatan;
+            document.getElementById('recapBermasalah').textContent = totalBermasalah;
+
+            // Detail pelanggaran
+            document.getElementById('recapTerlambatJumlah').textContent = recapTotals['Terlambat'].count;
+            document.getElementById('recapTerlambatPoin').textContent = recapTotals['Terlambat'].points;
+            
+            document.getElementById('recapPRJumlah').textContent = recapTotals['Tidak Mengerjakan PR'].count;
+            document.getElementById('recapPRPoin').textContent = recapTotals['Tidak Mengerjakan PR'].points;
+            
+            document.getElementById('recapSeragamJumlah').textContent = recapTotals['Tidak Berseragam'].count;
+            document.getElementById('recapSeragamPoin').textContent = recapTotals['Tidak Berseragam'].points;
+
+            document.getElementById('recapMenggangguJumlah').textContent = recapTotals['Mengganggu Kelas'].count;
+            document.getElementById('recapMenggangguPoin').textContent = recapTotals['Mengganggu Kelas'].points;
+
+            document.getElementById('recapMerokokJumlah').textContent = recapTotals['Merokok'].count;
+            document.getElementById('recapMerokokPoin').textContent = recapTotals['Merokok'].points;
+            
+            document.getElementById('recapBerkelahiJumlah').textContent = recapTotals['Berkelahi'].count;
+            document.getElementById('recapBerkelahiPoin').textContent = recapTotals['Berkelahi'].points;
+        }
+
+        // --- FUNGSI BARU: downloadRecap ---
+        // Mengunduh konten rekap sebagai file .doc
+        function downloadRecap() {
+            const content = document.getElementById('recapContent').innerHTML;
+            
+            // Tambahkan style CSS dasar agar terlihat rapi di Word
+            let html = `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8">`;
+            html += `<title>Rekap Kedisiplinan</title>`;
+            html += `<style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+                th, td { border: 1px solid #999; padding: 8px; text-align: left; }
+                th { background-color: #f0f0f0; }
+                h2 { color: #333; }
+                .grid { display: block; } /* Non-aktifkan grid di Word */
+                .text-center { text-align: center; }
+                .font-bold { font-weight: bold; }
+                /* Sembunyikan elemen yang tidak perlu dicetak */
+                .mb-6 { margin-bottom: 24px; }
+            </style>`;
+            html += `</head><body>${content}</body></html>`;
+
+            const blob = new Blob([html], { type: 'application/msword' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Rekap_Kedisiplinan.doc';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
-            updateStudentTable();
-            populateStudentSelect(); // Panggil fungsi baru saat halaman dimuat
+            renderStudentTable(); // Menggunakan nama fungsi baru
+            populateStudentSelect();
+            updateRecap(); // Inisialisasi data rekap saat halaman dimuat
         });
     </script>
 </body>
 </html>
-      
+
