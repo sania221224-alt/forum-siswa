@@ -85,7 +85,8 @@
                     </div>
                     <div class="flex items-center space-x-2">
                         <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Bermasalah</span>
-                        <span class="text-gray-600">21+ poin</span> </div>
+                        <span class="text-gray-600">21+ poin</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -226,7 +227,10 @@
             </div>
             
             <button onclick="downloadRecap()" class="mt-6 w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors">
-                📥 Unduh Rekap (.doc)
+                📥 Unduh Rekap Mingguan (.xls)
+            </button>
+            <button onclick="downloadDetailSiswa()" class="mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-green-700 transition-colors">
+                📋 Unduh Data Detail Siswa (.xls)
             </button>
         </div>
 
@@ -456,7 +460,6 @@
                 document.getElementById('recapSection').classList.remove('hidden');
                 document.getElementById('recapTab').classList.add('bg-indigo-500', 'text-white');
                 document.getElementById('recapTab').classList.remove('text-gray-600');
-                // BARU: Perbarui rekap setiap kali tab dibuka
                 updateRecap();
             }
         }
@@ -478,7 +481,6 @@
             document.getElementById('teacherCode').value = '';
         }
 
-        // --- BARU: MODIFIKASI FUNGSI addViolation ---
         function addViolation(violationType, points) {
             const selectedStudent = document.getElementById('studentSelect').value;
             
@@ -487,29 +489,20 @@
                 return;
             }
 
-            // Add points to student
             studentData[selectedStudent].points += points;
-            // BARU: Lacak jenis pelanggaran
             studentData[selectedStudent].violations[violationType]++;
             
-            // Update table
-            renderStudentTable(); // Menggunakan nama fungsi baru
-            
-            // BARU: Update rekap secara real-time
+            renderStudentTable(); 
             updateRecap();
             
-            // Show success message
             showSuccessMessage(`Poin ${violationType} (+${points}) berhasil ditambahkan untuk ${selectedStudent}`);
         }
 
-        // --- BARU: FUNGSI renderStudentTable (Menggantikan updateStudentTable) ---
-        // Fungsi ini sekarang menangani pencarian dan pengelompokan
         function renderStudentTable() {
             const filter = document.getElementById('searchInput').value.toUpperCase();
             const tableBody = document.getElementById('studentTable');
             tableBody.innerHTML = '';
 
-            // 1. Kelompokkan siswa berdasarkan kelas
             const groupedStudents = {};
             Object.keys(studentData).forEach(name => {
                 const student = studentData[name];
@@ -519,24 +512,17 @@
                 groupedStudents[student.class].push({ name, ...student });
             });
 
-            // 2. Urutkan kelas (X, XI, XII)
             const classOrder = {'X': 1, 'XI': 2, 'XII': 3};
             const sortedClasses = Object.keys(groupedStudents).sort((a, b) => {
                 const [prefixA] = a.split(' ');
                 const [prefixB] = b.split(' ');
-                
                 const orderA = classOrder[prefixA] || 99;
                 const orderB = classOrder[prefixB] || 99;
-
-                if (orderA !== orderB) {
-                    return orderA - orderB;
-                }
-                return a.localeCompare(b); // Urutkan sub-kelas (misal: X 1 vs X 2)
+                if (orderA !== orderB) return orderA - orderB;
+                return a.localeCompare(b);
             });
 
-            // 3. Render tabel
             sortedClasses.forEach(className => {
-                // Tambahkan baris header kelas
                 const classHeaderRow = document.createElement('tr');
                 classHeaderRow.classList.add('bg-indigo-100', 'font-bold');
                 classHeaderRow.innerHTML = `
@@ -544,26 +530,21 @@
                 `;
                 tableBody.appendChild(classHeaderRow);
 
-                // Urutkan siswa dalam kelas berdasarkan nama
                 const studentsInClass = groupedStudents[className].sort((a, b) => a.name.localeCompare(b.name));
-
                 let studentsFound = 0;
+
                 studentsInClass.forEach(student => {
-                    // Terapkan filter pencarian
                     if (student.name.toUpperCase().indexOf(filter) > -1) {
                         studentsFound++;
                         const row = document.createElement('tr');
                         
                         let status, statusClass;
                         if (student.points <= 10) {
-                            status = 'Baik';
-                            statusClass = 'bg-green-100 text-green-800';
+                            status = 'Baik'; statusClass = 'bg-green-100 text-green-800';
                         } else if (student.points <= 20) {
-                            status = 'Peringatan';
-                            statusClass = 'bg-yellow-100 text-yellow-800';
+                            status = 'Peringatan'; statusClass = 'bg-yellow-100 text-yellow-800';
                         } else {
-                            status = 'Bermasalah';
-                            statusClass = 'bg-red-100 text-red-800';
+                            status = 'Bermasalah'; statusClass = 'bg-red-100 text-red-800';
                         }
 
                         let pointsColor;
@@ -579,12 +560,10 @@
                                 <span class="${statusClass} px-2 py-1 rounded-full text-sm">${status}</span>
                             </td>
                         `;
-                        
                         tableBody.appendChild(row);
                     }
                 });
 
-                // Sembunyikan header kelas jika tidak ada siswa yang cocok
                 if (studentsFound === 0 && filter.length > 0) {
                     classHeaderRow.classList.add('hidden');
                 }
@@ -593,11 +572,8 @@
         
         function populateStudentSelect() {
             const select = document.getElementById('studentSelect');
-            select.innerHTML = '<option value="">-- Pilih Siswa --</option>'; // Hapus isi & tambahkan default
-
-            // Urutkan nama siswa berdasarkan abjad
+            select.innerHTML = '<option value="">-- Pilih Siswa --</option>';
             const sortedNames = Object.keys(studentData).sort();
-
             sortedNames.forEach(name => {
                 const student = studentData[name];
                 const option = document.createElement('option');
@@ -621,8 +597,6 @@
             }, 3000);
         }
 
-        // --- FUNGSI BARU: updateRecap ---
-        // Menghitung dan menampilkan data rekapitulasi secara dinamis
         function updateRecap() {
             let totalBaik = 0;
             let totalPeringatan = 0;
@@ -637,21 +611,11 @@
                 'Berkelahi': { count: 0, points: 0, pointValue: 15 }
             };
 
-            // 1. Hitung total dari semua siswa
             Object.values(studentData).forEach(student => {
-                // Hitung status
-                if (student.points === 0) {
-                    // Tetap dihitung "Baik" meskipun 0 poin
-                    totalBaik++;
-                } else if (student.points <= 10) {
-                    totalBaik++;
-                } else if (student.points <= 20) {
-                    totalPeringatan++;
-                } else {
-                    totalBermasalah++;
-                }
+                if (student.points <= 10) totalBaik++;
+                else if (student.points <= 20) totalPeringatan++;
+                else totalBermasalah++;
 
-                // Hitung total pelanggaran
                 Object.keys(student.violations).forEach(type => {
                     const count = student.violations[type];
                     if (count > 0) {
@@ -661,38 +625,29 @@
                 });
             });
 
-            // 2. Terapkan total ke HTML
-            // Status siswa
             document.getElementById('recapBaik').textContent = totalBaik;
             document.getElementById('recapPeringatan').textContent = totalPeringatan;
             document.getElementById('recapBermasalah').textContent = totalBermasalah;
-
-            // Detail pelanggaran
+            
             document.getElementById('recapTerlambatJumlah').textContent = recapTotals['Terlambat'].count;
             document.getElementById('recapTerlambatPoin').textContent = recapTotals['Terlambat'].points;
-            
             document.getElementById('recapPRJumlah').textContent = recapTotals['Tidak Mengerjakan PR'].count;
             document.getElementById('recapPRPoin').textContent = recapTotals['Tidak Mengerjakan PR'].points;
-            
             document.getElementById('recapSeragamJumlah').textContent = recapTotals['Tidak Berseragam'].count;
             document.getElementById('recapSeragamPoin').textContent = recapTotals['Tidak Berseragam'].points;
-
             document.getElementById('recapMenggangguJumlah').textContent = recapTotals['Mengganggu Kelas'].count;
             document.getElementById('recapMenggangguPoin').textContent = recapTotals['Mengganggu Kelas'].points;
-
             document.getElementById('recapMerokokJumlah').textContent = recapTotals['Merokok'].count;
             document.getElementById('recapMerokokPoin').textContent = recapTotals['Merokok'].points;
-            
             document.getElementById('recapBerkelahiJumlah').textContent = recapTotals['Berkelahi'].count;
             document.getElementById('recapBerkelahiPoin').textContent = recapTotals['Berkelahi'].points;
         }
 
-        // --- FUNGSI BARU: downloadRecap ---
-        // Mengunduh konten rekap sebagai file .doc
+        // --- FUNGSI DIPERBARUI: downloadRecap ---
+        // Mengunduh konten rekap sebagai file .xls (menggunakan HTML table)
         function downloadRecap() {
             const content = document.getElementById('recapContent').innerHTML;
             
-            // Tambahkan style CSS dasar agar terlihat rapi di Word
             let html = `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8">`;
             html += `<title>Rekap Kedisiplinan</title>`;
             html += `<style>
@@ -701,20 +656,73 @@
                 th, td { border: 1px solid #999; padding: 8px; text-align: left; }
                 th { background-color: #f0f0f0; }
                 h2 { color: #333; }
-                .grid { display: block; } /* Non-aktifkan grid di Word */
+                .grid { display: block; }
                 .text-center { text-align: center; }
                 .font-bold { font-weight: bold; }
-                /* Sembunyikan elemen yang tidak perlu dicetak */
                 .mb-6 { margin-bottom: 24px; }
             </style>`;
             html += `</head><body>${content}</body></html>`;
 
-            const blob = new Blob([html], { type: 'application/msword' });
+            // --- PERUBAHAN TIPE BLOB DAN NAMA FILE ---
+            const blob = new Blob([html], { type: 'application/vnd.ms-excel' });
             const url = URL.createObjectURL(blob);
             
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'Rekap_Kedisiplinan.doc';
+            a.download = 'Rekap_Mingguan.xls'; // Ganti menjadi .xls
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // --- FUNGSI BARU: downloadDetailSiswa ---
+        // Mengunduh data detail semua siswa sebagai file CSV (disimpan sbg .xls)
+        function downloadDetailSiswa() {
+            const violationTypes = [
+                'Terlambat',
+                'Tidak Mengerjakan PR',
+                'Tidak Berseragam',
+                'Mengganggu Kelas',
+                'Merokok',
+                'Berkelahi'
+            ];
+
+            // 1. Buat Header
+            let csvContent = "Nama Siswa,Kelas,Total Poin," + violationTypes.join(',') + "\n";
+
+            // 2. Buat Baris Data
+            // Urutkan nama siswa agar konsisten dengan tabel
+            const sortedNames = Object.keys(studentData).sort();
+
+            sortedNames.forEach(name => {
+                const student = studentData[name];
+                
+                // Ambil data pelanggaran
+                const violationCounts = violationTypes.map(type => {
+                    return student.violations[type];
+                });
+                
+                // Gabungkan semua data
+                // Tambahkan tanda kutip untuk nama dan kelas untuk menangani koma (jika ada)
+                const row = [
+                    `"${name}"`,
+                    `"${student.class}"`,
+                    student.points,
+                    ...violationCounts
+                ].join(',') + "\n";
+                
+                csvContent += row;
+            });
+
+            // 3. Buat dan Unduh File
+            // Kita gunakan tipe CSV, tapi ekstensi .xls agar Excel membukanya langsung
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Data_Detail_Siswa.xls'; // Sesuai permintaan .xls
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -724,11 +732,10 @@
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
-            renderStudentTable(); // Menggunakan nama fungsi baru
+            renderStudentTable();
             populateStudentSelect();
-            updateRecap(); // Inisialisasi data rekap saat halaman dimuat
+            updateRecap();
         });
     </script>
 </body>
 </html>
-
