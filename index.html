@@ -41,7 +41,7 @@
                     👨‍🏫 Akses Guru
                 </button>
                 <button onclick="showTab('recap')" id="recapTab" class="px-6 py-2 rounded-md font-medium transition-all text-gray-600 hover:text-indigo-600">
-                    📊 Rekap
+                    📊 Rekap Detail
                 </button>
             </div>
         </div>
@@ -155,91 +155,20 @@
         </div>
 
         <div id="recapSection" class="hidden">
-            <div id="recapContent" class="bg-white rounded-xl shadow-lg p-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Rekap Ringkasan Mingguan</h2>
-                
-                <div class="mb-6">
-                    <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
-                        <h3 class="font-bold text-indigo-800 mb-2">📅 Periode: 27 Okt - 2 Nov 2025</h3>
-                        <p class="text-indigo-600">Data diperbarui secara real-time</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
-                        <div id="recapBaik" class="text-3xl font-bold text-green-600">0</div>
-                        <div class="text-green-800 font-medium">Siswa Baik</div>
-                    </div>
-                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
-                        <div id="recapPeringatan" class="text-3xl font-bold text-yellow-600">0</div>
-                        <div class="text-yellow-800 font-medium">Siswa Peringatan</div>
-                    </div>
-                    <div class="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
-                        <div id="recapBermasalah" class="text-3xl font-bold text-red-600">0</div>
-                        <div class="text-red-800 font-medium">Siswa Bermasalah</div>
-                    </div>
-                </div>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full border-collapse">
-                        <thead>
-                            <tr class="bg-gray-50">
-                                <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Jenis Pelanggaran</th>
-                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Jumlah Kasus</th>
-                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Total Poin</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">⏰ Terlambat</td>
-                                <td id="recapTerlambatJumlah" class="border border-gray-300 px-4 py-3 text-center">0</td>
-                                <td id="recapTerlambatPoin" class="border border-gray-300 px-4 py-3 text-center font-bold">0</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">📚 Tidak Mengerjakan PR</td>
-                                <td id="recapPRJumlah" class="border border-gray-300 px-4 py-3 text-center">0</td>
-                                <td id="recapPRPoin" class="border border-gray-300 px-4 py-3 text-center font-bold">0</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">👔 Tidak Berseragam</td>
-                                <td id="recapSeragamJumlah" class="border border-gray-300 px-4 py-3 text-center">0</td>
-                                <td id="recapSeragamPoin" class="border border-gray-300 px-4 py-3 text-center font-bold">0</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">🗣️ Mengganggu Kelas</td>
-                                <td id="recapMenggangguJumlah" class="border border-gray-300 px-4 py-3 text-center">0</td>
-                                <td id="recapMenggangguPoin" class="border border-gray-300 px-4 py-3 text-center font-bold">0</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">🚭 Merokok</td>
-                                <td id="recapMerokokJumlah" class="border border-gray-300 px-4 py-3 text-center">0</td>
-                                <td id="recapMerokokPoin" class="border border-gray-300 px-4 py-3 text-center font-bold">0</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-3">👊 Berkelahi</td>
-                                <td id="recapBerkelahiJumlah" class="border border-gray-300 px-4 py-3 text-center">0</td>
-                                <td id="recapBerkelahiPoin" class="border border-gray-300 px-4 py-3 text-center font-bold">0</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <button onclick="downloadRecap()" class="mt-6 w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors">
-                    📥 Unduh Ringkasan (.doc)
-                </button>
-            </div>
             
-            <div id="recapDetailContent" class="bg-white rounded-xl shadow-lg p-6 mt-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">🔍 Detail Pelanggaran per Siswa</h2>
-                <p class="text-gray-600 mb-4">Hanya siswa dengan poin pelanggaran yang akan ditampilkan di sini.</p>
+            <div id="recapDetailContent" class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Rekap Detail Seluruh Siswa</h2>
+                <p class="text-gray-600 mb-6">Tabel ini menampilkan data poin dan detail pelanggaran untuk semua siswa. Gunakan tombol di bawah untuk mengunduh sebagai file Excel (CSV).</p>
+                
                 <div class="overflow-x-auto">
                     <table class="w-full border-collapse">
                         <thead>
                             <tr class="bg-gray-50">
                                 <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Nama Siswa</th>
                                 <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Kelas</th>
-                                <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Detail Pelanggaran</th>
                                 <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Total Poin</th>
+                                <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Status</th>
+                                <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Detail Pelanggaran</th>
                             </tr>
                         </thead>
                         <tbody id="recapDetailTableBody">
@@ -249,7 +178,7 @@
             </div>
 
             <button onclick="downloadDetailRecapAsCSV()" class="mt-6 w-full bg-green-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-green-700 transition-colors">
-                📥 Unduh Detail (Excel/CSV)
+                📥 Unduh Rekap Detail (Excel/CSV)
             </button>
         </div>
         <div id="successMessage" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
@@ -261,8 +190,7 @@
     </div>
 
     <script>
-        // --- BARU: MODIFIKASI STRUKTUR DATA ---
-        // Menambahkan properti 'violations' untuk melacak setiap jenis pelanggaran
+        // --- STRUKTUR DATA (TETAP SAMA) ---
         const createStudent = (className) => ({
             class: className,
             points: 0,
@@ -478,7 +406,7 @@
                 document.getElementById('recapSection').classList.remove('hidden');
                 document.getElementById('recapTab').classList.add('bg-indigo-500', 'text-white');
                 document.getElementById('recapTab').classList.remove('text-gray-600');
-                // BARU: Perbarui rekap setiap kali tab dibuka
+                // BARU: Perbarui rekap *detail* setiap kali tab dibuka
                 updateRecap();
             }
         }
@@ -500,7 +428,6 @@
             document.getElementById('teacherCode').value = '';
         }
 
-        // --- BARU: MODIFIKASI FUNGSI addViolation ---
         function addViolation(violationType, points) {
             const selectedStudent = document.getElementById('studentSelect').value;
             
@@ -511,21 +438,19 @@
 
             // Add points to student
             studentData[selectedStudent].points += points;
-            // BARU: Lacak jenis pelanggaran
+            // Lacak jenis pelanggaran
             studentData[selectedStudent].violations[violationType]++;
             
             // Update table
-            renderStudentTable(); // Menggunakan nama fungsi baru
+            renderStudentTable(); 
             
-            // BARU: Update rekap secara real-time
+            // Update rekap secara real-time
             updateRecap();
             
             // Show success message
             showSuccessMessage(`Poin ${violationType} (+${points}) berhasil ditambahkan untuk ${selectedStudent}`);
         }
 
-        // --- BARU: FUNGSI renderStudentTable (Menggantikan updateStudentTable) ---
-        // Fungsi ini sekarang menangani pencarian dan pengelompokan
         function renderStudentTable() {
             const filter = document.getElementById('searchInput').value.toUpperCase();
             const tableBody = document.getElementById('studentTable');
@@ -644,149 +569,70 @@
         }
 
         // --- FUNGSI DIMODIFIKASI: updateRecap ---
-        // Sekarang juga mengisi tabel rekap detail
+        // Sekarang mengisi tabel rekap detail untuk SEMUA siswa
         function updateRecap() {
-            let totalBaik = 0;
-            let totalPeringatan = 0;
-            let totalBermasalah = 0;
-
-            const recapTotals = {
-                'Terlambat': { count: 0, points: 0, pointValue: 2 },
-                'Tidak Mengerjakan PR': { count: 0, points: 0, pointValue: 3 },
-                'Mengganggu Kelas': { count: 0, points: 0, pointValue: 4 },
-                'Tidak Berseragam': { count: 0, points: 0, pointValue: 5 },
-                'Merokok': { count: 0, points: 0, pointValue: 10 },
-                'Berkelahi': { count: 0, points: 0, pointValue: 15 }
-            };
-
-            // 1. Hitung total dari semua siswa
-            Object.values(studentData).forEach(student => {
-                // Hitung status
-                if (student.points === 0) {
-                    totalBaik++;
-                } else if (student.points <= 10) {
-                    totalBaik++;
-                } else if (student.points <= 20) {
-                    totalPeringatan++;
-                } else {
-                    totalBermasalah++;
-                }
-
-                // Hitung total pelanggaran
-                Object.keys(student.violations).forEach(type => {
-                    const count = student.violations[type];
-                    if (count > 0) {
-                        recapTotals[type].count += count;
-                        recapTotals[type].points += count * recapTotals[type].pointValue;
-                    }
-                });
-            });
-
-            // 2. Terapkan total ke HTML Ringkasan
-            document.getElementById('recapBaik').textContent = totalBaik;
-            document.getElementById('recapPeringatan').textContent = totalPeringatan;
-            document.getElementById('recapBermasalah').textContent = totalBermasalah;
-
-            document.getElementById('recapTerlambatJumlah').textContent = recapTotals['Terlambat'].count;
-            document.getElementById('recapTerlambatPoin').textContent = recapTotals['Terlambat'].points;
-            document.getElementById('recapPRJumlah').textContent = recapTotals['Tidak Mengerjakan PR'].count;
-            document.getElementById('recapPRPoin').textContent = recapTotals['Tidak Mengerjakan PR'].points;
-            document.getElementById('recapSeragamJumlah').textContent = recapTotals['Tidak Berseragam'].count;
-            document.getElementById('recapSeragamPoin').textContent = recapTotals['Tidak Berseragam'].points;
-            document.getElementById('recapMenggangguJumlah').textContent = recapTotals['Mengganggu Kelas'].count;
-            document.getElementById('recapMenggangguPoin').textContent = recapTotals['Mengganggu Kelas'].points;
-            document.getElementById('recapMerokokJumlah').textContent = recapTotals['Merokok'].count;
-            document.getElementById('recapMerokokPoin').textContent = recapTotals['Merokok'].points;
-            document.getElementById('recapBerkelahiJumlah').textContent = recapTotals['Berkelahi'].count;
-            document.getElementById('recapBerkelahiPoin').textContent = recapTotals['Berkelahi'].points;
-
-            // --- 3. BARU: Populate Detail Rekap Table ---
             const detailTableBody = document.getElementById('recapDetailTableBody');
             detailTableBody.innerHTML = ''; // Kosongkan tabel
             
-            let hasViolations = false;
             const sortedNames = Object.keys(studentData).sort();
             
             sortedNames.forEach(name => {
                 const student = studentData[name];
 
-                if (student.points > 0) { // Hanya tampilkan siswa yang punya poin
-                    hasViolations = true;
-                    
-                    // Buat string detail pelanggaran
-                    let violationString = Object.keys(student.violations)
-                        .filter(type => student.violations[type] > 0)
-                        .map(type => `${type} (x${student.violations[type]})`)
-                        .join(', ');
-
-                    const row = document.createElement('tr');
-                    
-                    let pointsColor;
-                    if (student.points <= 10) pointsColor = 'text-green-600';
-                    else if (student.points <= 20) pointsColor = 'text-orange-600';
-                    else pointsColor = 'text-red-600';
-
-                    row.innerHTML = `
-                        <td class="border border-gray-300 px-4 py-3">${name}</td>
-                        <td class="border border-gray-300 px-4 py-3">${student.class}</td>
-                        <td class="border border-gray-300 px-4 py-3">${violationString}</td>
-                        <td class="border border-gray-300 px-4 py-3 text-center font-bold ${pointsColor}">${student.points}</td>
-                    `;
-                    detailTableBody.appendChild(row);
+                // 1. Tentukan Status dan Kelas CSS
+                let status, statusClass;
+                if (student.points <= 10) {
+                    status = 'Baik';
+                    statusClass = 'bg-green-100 text-green-800';
+                } else if (student.points <= 20) {
+                    status = 'Peringatan';
+                    statusClass = 'bg-yellow-100 text-yellow-800';
+                } else {
+                    status = 'Bermasalah';
+                    statusClass = 'bg-red-100 text-red-800';
                 }
-            });
 
-            if (!hasViolations) {
-                detailTableBody.innerHTML = `
-                    <tr>
-                        <td colspan="4" class="border border-gray-300 px-4 py-3 text-center text-gray-500">
-                            🎉 Tidak ada pelanggaran yang tercatat.
-                        </td>
-                    </tr>
+                // 2. Tentukan Warna Poin
+                let pointsColor;
+                if (student.points <= 10) pointsColor = 'text-green-600';
+                else if (student.points <= 20) pointsColor = 'text-orange-600';
+                else pointsColor = 'text-red-600';
+
+                // 3. Buat string detail pelanggaran
+                let violationString = Object.keys(student.violations)
+                    .filter(type => student.violations[type] > 0)
+                    .map(type => `${type} (x${student.violations[type]})`)
+                    .join(', ');
+
+                if (student.points === 0) {
+                    violationString = "Tidak ada pelanggaran";
+                }
+
+                // 4. Buat Baris Tabel
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="border border-gray-300 px-4 py-3">${name}</td>
+                    <td class="border border-gray-300 px-4 py-3">${student.class}</td>
+                    <td class="border border-gray-300 px-4 py-3 text-center font-bold ${pointsColor}">${student.points}</td>
+                    <td class="border border-gray-300 px-4 py-3 text-center">
+                        <span class="${statusClass} px-2 py-1 rounded-full text-sm">${status}</span>
+                    </td>
+                    <td class="border border-gray-300 px-4 py-3">${violationString}</td>
                 `;
-            }
+                detailTableBody.appendChild(row);
+            });
         }
 
-        // --- FUNGSI BARU: downloadRecap ---
-        // Mengunduh konten rekap sebagai file .doc
-        function downloadRecap() {
-            const content = document.getElementById('recapContent').innerHTML;
-            
-            let html = `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8">`;
-            html += `<title>Rekap Kedisiplinan</title>`;
-            html += `<style>
-                body { font-family: Arial, sans-serif; margin: 20px; }
-                table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-                th, td { border: 1px solid #999; padding: 8px; text-align: left; }
-                th { background-color: #f0f0f0; }
-                h2 { color: #333; }
-                .grid { display: block; }
-                .text-center { text-align: center; }
-                .font-bold { font-weight: bold; }
-                .mb-6 { margin-bottom: 24px; }
-                button { display: none; } /* Sembunyikan tombol di file doc */
-            </style>`;
-            html += `</head><body>${content}</body></html>`;
-
-            const blob = new Blob([html], { type: 'application/msword' });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'Rekap_Ringkasan_Kedisiplinan.doc';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
+        // --- FUNGSI DIHAPUS: downloadRecap() ---
+        // Fungsi untuk .doc sudah dihapus
 
         // --- FUNGSI BARU: downloadDetailRecapAsCSV ---
-        // Mengunduh rekap detail sebagai file .csv (untuk Excel)
+        // Mengunduh rekap detail SEMUA SISWA sebagai file .csv (untuk Excel)
         function downloadDetailRecapAsCSV() {
             let csvContent = "data:text/csv;charset=utf-8,";
             
             // 1. Buat Header
-            const headers = ["Nama Siswa", "Kelas", "Total Poin", "Detail Pelanggaran"];
+            const headers = ["Nama Siswa", "Kelas", "Total Poin", "Status", "Detail Pelanggaran"];
             csvContent += headers.join(",") + "\r\n";
 
             // 2. Buat Baris Data
@@ -795,30 +641,39 @@
             sortedNames.forEach(name => {
                 const student = studentData[name];
 
-                if (student.points > 0) {
-                    // Buat string detail pelanggaran
-                    // Gunakan titik koma (;) sebagai pemisah internal agar tidak bentrok dengan koma CSV
-                    let violationString = Object.keys(student.violations)
-                        .filter(type => student.violations[type] > 0)
-                        .map(type => `${type} (x${student.violations[type]})`)
-                        .join('; '); 
+                // Tentukan status (teks saja)
+                let status;
+                if (student.points <= 10) status = "Baik";
+                else if (student.points <= 20) status = "Peringatan";
+                else status = "Bermasalah";
 
-                    // Enclose in quotes to handle potential commas
-                    const row = [
-                        `"${name}"`,
-                        `"${student.class}"`,
-                        student.points,
-                        `"${violationString}"`
-                    ];
-                    csvContent += row.join(",") + "\r\n";
+                // Buat string detail pelanggaran
+                // Gunakan titik koma (;) sebagai pemisah internal agar tidak bentrok dengan koma CSV
+                let violationString = Object.keys(student.violations)
+                    .filter(type => student.violations[type] > 0)
+                    .map(type => `${type} (x${student.violations[type]})`)
+                    .join('; '); 
+
+                if (student.points === 0) {
+                    violationString = "Tidak ada pelanggaran";
                 }
+
+                // Enclose in quotes to handle potential commas
+                const row = [
+                    `"${name}"`,
+                    `"${student.class}"`,
+                    student.points,
+                    `"${status}"`,
+                    `"${violationString}"`
+                ];
+                csvContent += row.join(",") + "\r\n";
             });
 
             // 3. Buat dan Trigger Download
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "rekap_detail_pelanggaran.csv");
+            link.setAttribute("download", "rekap_detail_seluruh_siswa.csv");
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -834,4 +689,4 @@
     </script>
 </body>
 </html>
-     
+                   
