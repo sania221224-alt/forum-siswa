@@ -23,13 +23,6 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
-        /* Style tambahan untuk konten tata tertib yang disisipkan */
-        .rules-content ul, .rules-content ol {
-            padding-left: 1.5rem;
-        }
-        .rules-content li {
-            margin-bottom: 0.5rem;
-        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-full">
@@ -40,7 +33,7 @@
         </div>
 
         <div class="flex justify-center mb-8">
-            <div class="bg-white rounded-lg shadow-md p-1 flex flex-wrap justify-center">
+            <div class="bg-white rounded-lg shadow-md p-1 flex">
                 <button onclick="showTab('public')" id="publicTab" class="px-6 py-2 rounded-md font-medium transition-all bg-indigo-500 text-white">
                     👥 Data Publik
                 </button>
@@ -100,7 +93,6 @@
         <div id="teacherSection" class="hidden">
             <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">🔐 Akses Guru</h2>
-                
                 <div id="loginForm" class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Kode Akses Guru</label>
@@ -116,7 +108,6 @@
                     <div class="bg-green-50 border border-green-200 rounded-lg p-4">
                         <p class="text-green-800 font-medium">✅ Berhasil masuk sebagai guru</p>
                     </div>
-
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Siswa</label>
                         <select id="studentSelect" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
@@ -127,67 +118,6 @@
                     <div>
                         <h3 class="text-lg font-bold text-gray-800 mb-4">Jenis Pelanggaran</h3>
                         
-                        <details class="mb-6 bg-gray-50 border border-gray-200 rounded-lg overflow-hidden">
-                            <summary class="font-medium text-indigo-700 cursor-pointer p-4 hover:bg-gray-100">
-                                📜 Tampilkan/Sembunyikan Tata Tertib Lengkap
-                            </summary>
-                            <div class="rules-content p-6 border-t border-gray-200">
-                                <header class="text-center mb-6 pb-4 border-b">
-                                    <h1 class="text-xl font-bold text-gray-900">Tata Tertib</h1>
-                                    <h2 class="text-lg font-semibold text-gray-700">SMA 1 Simanjaya</h2>
-                                    <p class="text-md text-gray-500">Tahun Pelajaran 2025/2026</p>
-                                </header>
-                        
-                                <section class="bg-blue-600 text-white p-4 rounded-lg text-center mb-6 shadow-md">
-                                    <h3 class="text-lg font-bold">Jargon SMA 1 Simanjaya</h3>
-                                    <p class="text-md mt-2 font-light">"Siap BHISA, Siap DISIPLIN, Siap JUARA..."</p>
-                                </section>
-                        
-                                <section class="mb-6">
-                                    <h3 class="text-lg font-bold text-gray-800 border-b-2 border-blue-200 pb-2 mb-3">Jenis Pelanggaran</h3>
-                                    <ul class="list-decimal list-inside bg-gray-50 p-4 rounded-lg space-y-2 text-gray-700">
-                                        <li>Pakaian Seragam</li>
-                                        <li>Rambut, Kuku, Tato, Make Up</li>
-                                        <li>Masuk dan Pulang Sekolah</li>
-                                        <li>Kebersihan, Kedisiplinan dan Ketertiban</li>
-                                        <li>Sopan Santun Pergaulan</li>
-                                        <li>Upacara Bendera dan Peringatan Hari Besar</li>
-                                        <li>Kegiatan Keagamaan</li>
-                                        <li>Larangan-larangan</li>
-                                    </ul>
-                                </section>
-                        
-                                <section class="mb-6">
-                                    <h3 class="text-lg font-bold text-gray-800 border-b-2 border-blue-200 pb-2 mb-3">Petugas yang Mencatat Pelanggaran</h3>
-                                    <ul class="list-disc list-inside bg-gray-50 p-4 rounded-lg space-y-2 text-gray-700">
-                                        <li>Petugas Ketertiban</li>
-                                        <li>Guru Piket</li>
-                                        <li>Wali Kelas</li>
-                                        <li>Semua Guru</li>
-                                    </ul>
-                                </section>
-                        
-                                <section class="mb-6">
-                                    <h3 class="text-lg font-bold text-gray-800 border-b-2 border-blue-200 pb-2 mb-3">Mekanisme Pelaksanaan</h3>
-                                    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-lg" role="alert">
-                                        <p class="font-bold mb-2">Bagaimana jika ada siswa yang terbukti melakukan pelanggaran?</p>
-                                        <p>Maka petugas wajib memerintahkan siswa yang bersangkutan untuk mengisi dan menandatangani blangko pelanggaran siswa.</p>
-                                    </div>
-                                </section>
-                        
-                                <section class="mb-6">
-                                    <h3 class="text-lg font-bold text-gray-800 border-b-2 border-blue-200 pb-2 mb-3">Tindak Lanjut</h3>
-                                    <ol class="list-decimal list-inside space-y-3 text-gray-700">
-                                        <li>Data dari setiap siswa akan direkap oleh petugas ketertiban setiap 2 minggu, kemudian dilaporkan kepada guru BK, kemudian data tersebut dilaporkan kepada wali kelas dan wakil kepala sekolah.</li>
-                                        <li>Selanjutnya pemberian tindakan/sanksi sesuai dengan jenis dan jumlah poin pelanggaran.</li>
-                                    </ol>
-                                </section>
-                        
-                                <footer class="text-center text-gray-500 italic mt-8 pt-4 border-t">
-                                    <p>"SAYA SIAP MENJADI SISWA SISWI YANG BERAKHLAQ, BERPERILAKU BAIK, BERKUALITAS DAN MELAKSANAKAN ATURAN SEKOLAH DENGAN BAIK."</p>
-                                </footer>
-                            </div>
-                        </details>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <button onclick="addViolation('Terlambat', 2)" class="bg-yellow-100 hover:bg-yellow-200 border-2 border-yellow-300 rounded-lg p-4 text-left transition-all">
                                 <div class="font-bold text-yellow-800">⏰ Terlambat</div>
@@ -213,6 +143,12 @@
                                 <div class="font-bold text-red-900">👊 Berkelahi</div>
                                 <div class="text-sm text-red-800">+15 poin</div>
                             </button>
+
+                            <button onclick="addViolation('Membolos', 8)" class="bg-cyan-100 hover:bg-cyan-200 border-2 border-cyan-300 rounded-lg p-4 text-left transition-all">
+                                <div class="font-bold text-cyan-800">🏃‍♂️ Membolos</div>
+                                <div class="text-sm text-cyan-600">+8 poin</div>
+                            </button>
+                            
                         </div>
                     </div>
 
@@ -249,7 +185,6 @@
                 📥 Unduh Rekap Detail (Excel)
             </button>
         </div>
-
         <div id="successMessage" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
             <div class="flex items-center space-x-2">
                 <span>✅</span>
@@ -259,7 +194,7 @@
     </div>
 
     <script>
-        // --- STRUKTUR DATA (Sama seperti file) ---
+        // === LANGKAH 2: DAFTARKAN PELANGGARAN DI SINI ===
         const createStudent = (className) => ({
             class: className,
             points: 0,
@@ -269,10 +204,12 @@
                 'Tidak Berseragam': 0,
                 'Mengganggu Kelas': 0,
                 'Merokok': 0,
-                'Berkelahi': 0
+                'Berkelahi': 0,
+                'Membolos': 0 // <-- BARU: Tambahkan nama pelanggaran di sini
             }
         });
 
+        // --- (Sisa data siswa tidak berubah) ---
         let studentData = {
             'ANGGI ARLIJANTI': createStudent('XI 1'),
             'ARDHONI UBAIDILLAH RIZKY': createStudent('XI 1'),
@@ -436,7 +373,7 @@
         // Valid teacher codes
         const teacherCodes = ['SMANJAOKE123'];
 
-        // --- SEMUA FUNGSI JAVASCRIPT (Sama seperti file) ---
+        // --- (SEMUA FUNGSI JAVASCRIPT LAINNYA TIDAK BERUBAH) ---
         
         function showTab(tab) {
             // Hide all sections
@@ -660,7 +597,7 @@
                 detailTableBody.appendChild(row);
             });
         }
-
+        
         function downloadRecapAsExcel() {
             const tableHTML = document.querySelector("#recapDetailContent table").outerHTML;
             const htmlTemplate = `
@@ -704,7 +641,7 @@
             
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = "rekap_detail_kedisiplinan.xls"; 
+            link.download = "rekap_detail_kedisiplinan.xls";
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -713,9 +650,9 @@
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
-            renderStudentTable(); 
+            renderStudentTable();
             populateStudentSelect();
-            updateRecap(); 
+            updateRecap();
         });
     </script>
 </body>
