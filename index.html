@@ -176,8 +176,8 @@
                 </div>
             </div>
             
-            <button onclick="downloadDetailRecapAsCSV()" class="mt-6 w-full bg-green-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-green-700 transition-colors">
-                📥 Unduh Rekap Detail (Excel/CSV)
+            <button onclick="downloadRecapAsExcel()" class="mt-6 w-full bg-green-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-green-700 transition-colors">
+                📥 Unduh Rekap Detail (Excel)
             </button>
         </div>
 
@@ -428,7 +428,6 @@
             document.getElementById('teacherCode').value = '';
         }
 
-        // --- FUNGSI addViolation (TETAP SAMA) ---
         function addViolation(violationType, points) {
             const selectedStudent = document.getElementById('studentSelect').value;
             
@@ -452,7 +451,6 @@
             showSuccessMessage(`Poin ${violationType} (+${points}) berhasil ditambahkan untuk ${selectedStudent}`);
         }
 
-        // --- FUNGSI renderStudentTable (TETAP SAMA) ---
         function renderStudentTable() {
             const filter = document.getElementById('searchInput').value.toUpperCase();
             const tableBody = document.getElementById('studentTable');
@@ -570,8 +568,8 @@
             }, 3000);
         }
 
-        // --- PERUBAHAN JAVASCRIPT 1: FUNGSI updateRecap Diubah Total ---
-        // Sekarang mengisi tabel rekap detail untuk SEMUA siswa
+        // --- FUNGSI updateRecap (TETAP SAMA) ---
+        // Mengisi tabel rekap detail untuk SEMUA siswa
         function updateRecap() {
             const detailTableBody = document.getElementById('recapDetailTableBody');
             detailTableBody.innerHTML = ''; // Kosongkan tabel
@@ -625,59 +623,85 @@
             });
         }
 
-        // --- PERUBAHAN JAVASCRIPT 2: FUNGSI downloadRecap Dihapus dan Diganti ---
-        // FUNGSI BARU: downloadDetailRecapAsCSV
-        // Mengunduh rekap detail SEMUA SISWA sebagai file .csv (untuk Excel)
-        function downloadDetailRecapAsCSV() {
-            let csvContent = "data:text/csv;charset=utf-8,";
+        // --- === PERUBAHAN JAVASCRIPT: FUNGSI DOWNLOAD DIUBAH TOTAL === ---
+        // Mengunduh tabel rekap sebagai file .xls (Excel) yang diformat dengan HTML
+        function downloadRecapAsExcel() {
+            // 1. Dapatkan HTML dari tabel yang ada di halaman
+            // Kita ambil .outerHTML agar tag <table>-nya ikut terambil
+            const tableHTML = document.querySelector("#recapDetailContent table").outerHTML;
+
+            // 2. Buat template HTML lengkap dengan CSS untuk styling tabel
+            const htmlTemplate = `
+                <!DOCTYPE html>
+                <html lang="id">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Rekap Detail Kedisiplinan</title>
+                    <style>
+                        /* Tambahkan style agar tabelnya "bagus" di Excel */
+                        body {
+                            font-family: Arial, sans-serif;
+                        }
+                        table {
+                            border-collapse: collapse; /* Hapus spasi antar sel */
+                            width: 100%;
+                            font-size: 10pt;
+                        }
+                        th, td {
+                            border: 1px solid #666; /* Tambah border yang jelas */
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        th {
+                            background-color: #f0f0f0; /* Beri warna header */
+                            font-weight: bold;
+                        }
+                        
+                        /* Style di bawah ini meniru kelas-kelas Tailwind 
+                           yang digunakan di tabel agar tampilannya sama di Excel 
+                        */
+                        .bg-gray-50 { background-color: #f9fafb; }
+                        .bg-green-100 { background-color: #d1fae5; }
+                        .text-green-800 { color: #065f46; }
+                        .bg-yellow-100 { background-color: #fef3c7; }
+                        .text-yellow-800 { color: #92400e; }
+                        .bg-red-100 { background-color: #fee2e2; }
+                        .text-red-800 { color: #991b1b; }
+                        
+                        .text-green-600 { color: #059669; }
+                        .text-orange-600 { color: #ea580c; }
+                        .text-red-600 { color: #dc2626; }
+
+                        .font-bold { font-weight: bold; }
+                        .text-center { text-align: center; }
+                        .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+                        .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+                        .rounded-full { border-radius: 9999px; }
+                        .text-sm { font-size: 0.875rem; }
+                    </style>
+                </head>
+                <body>
+                    <h2>Rekap Detail Seluruh Siswa</h2>
+                    <p>Data pelanggaran siswa yang diekspor pada ${new Date().toLocaleString('id-ID')}</p>
+                    ${tableHTML}
+                </body>
+                </html>
+            `;
+
+            // 3. Buat Blob dengan tipe MIME untuk Excel
+            // 'application/vnd.ms-excel' adalah tipe yang dikenali Excel untuk file HTML
+            const blob = new Blob([htmlTemplate], { type: 'application/vnd.ms-excel' });
             
-            // 1. Buat Header
-            const headers = ["Nama Siswa", "Kelas", "Total Poin", "Status", "Detail Pelanggaran"];
-            csvContent += headers.join(",") + "\r\n";
-
-            // 2. Buat Baris Data
-            const sortedNames = Object.keys(studentData).sort();
-            
-            sortedNames.forEach(name => {
-                const student = studentData[name];
-
-                // Tentukan status (teks saja)
-                let status;
-                if (student.points <= 10) status = "Baik";
-                else if (student.points <= 20) status = "Peringatan";
-                else status = "Bermasalah";
-
-                // Buat string detail pelanggaran
-                // Gunakan titik koma (;) sebagai pemisah internal agar tidak bentrok dengan koma CSV
-                let violationString = Object.keys(student.violations)
-                    .filter(type => student.violations[type] > 0)
-                    .map(type => `${type} (x${student.violations[type]})`)
-                    .join('; '); 
-
-                if (student.points === 0) {
-                    violationString = "Tidak ada pelanggaran";
-                }
-
-                // Enclose in quotes to handle potential commas
-                const row = [
-                    `"${name}"`,
-                    `"${student.class}"`,
-                    student.points,
-                    `"${status}"`,
-                    `"${violationString}"`
-                ];
-                csvContent += row.join(",") + "\r\n";
-            });
-
-            // 3. Buat dan Trigger Download
-            const encodedUri = encodeURI(csvContent);
+            // 4. Buat link download
             const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "rekap_detail_seluruh_siswa.csv");
+            link.href = URL.createObjectURL(blob);
+            link.download = "rekap_detail_kedisiplinan.xls"; // Simpan sebagai .xls
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
         }
+        // --- === AKHIR PERUBAHAN FUNGSI DOWNLOAD === ---
 
 
         // Initialize the page
