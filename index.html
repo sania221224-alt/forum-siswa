@@ -50,6 +50,27 @@
             <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Data Poin Pelanggaran Siswa</h2>
                 
+                <div class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">📥 Impor Data Siswa Baru</h3>
+                    <p class="text-sm text-gray-600 mb-3">
+                        Pilih file <strong>.csv</strong> untuk menambahkan siswa baru ke dalam sistem.
+                        <br>
+                        Format per baris: <code>Nama Siswa,Kelas</code> (Contoh: <code>BUDI SANTOSO,X 3</code>)
+                    </p>
+                    <div class="flex items-center space-x-2">
+                        <input type="file" id="csvFileInput" accept=".csv" 
+                               class="block w-full text-sm text-gray-500
+                                      file:mr-4 file:py-2 file:px-4
+                                      file:rounded-lg file:border-0
+                                      file:text-sm file:font-semibold
+                                      file:bg-indigo-50 file:text-indigo-700
+                                      hover:file:bg-indigo-100 transition-colors cursor-pointer">
+                        <button onclick="handleFileUpload()" 
+                                class="flex-shrink-0 bg-indigo-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
+                            Proses File
+                        </button>
+                    </div>
+                </div>
                 <div class="mb-4">
                     <input type="text" id="searchInput" onkeyup="renderStudentTable()" 
                            placeholder="Ketuk untuk mencari nama siswa..." 
@@ -679,7 +700,85 @@
             document.body.removeChild(link);
         }
 
+        // --- FUNGSI BARU UNTUK IMPOR CSV ---
 
+        /**
+         * Menangani event klik tombol "Proses File".
+         * Mengambil file dari input dan memicunya untuk dibaca sebagai teks.
+         */
+        function handleFileUpload() {
+            const fileInput = document.getElementById('csvFileInput');
+            if (fileInput.files.length === 0) {
+                alert('⚠️ Silakan pilih file .csv terlebih dahulu.');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            // Saat file selesai dibaca
+            reader.onload = function(event) {
+                const csvData = event.target.result;
+                processCSV(csvData); // Kirim data teks ke fungsi proses
+            };
+
+            // Mulai baca file sebagai teks
+            reader.readAsText(file);
+        }
+
+        /**
+         * Memproses data teks dari file CSV.
+         * Menambahkan siswa baru ke 'studentData' jika belum ada.
+         */
+        function processCSV(csvData) {
+            let addedCount = 0;
+            let skippedCount = 0;
+            
+            // Pisahkan data menjadi baris-baris, abaikan baris kosong
+            const lines = csvData.split(/\r?\n/).filter(line => line.trim() !== '');
+
+            lines.forEach(line => {
+                // Pisahkan setiap baris dengan koma
+                const parts = line.split(',');
+                
+                // Pastikan ada 2 bagian (Nama, Kelas)
+                if (parts.length >= 2) {
+                    // Ambil nama dan kelas, bersihkan spasi ekstra
+                    // Gunakan .toUpperCase() agar konsisten dengan data Anda yang sudah ada
+                    const name = parts[0].trim().toUpperCase();
+                    const className = parts[1].trim();
+
+                    if (name && className) {
+                        // Cek apakah siswa SUDAH ADA
+                        if (!studentData[name]) {
+                            // Jika BELUM, tambahkan menggunakan createStudent
+                            studentData[name] = createStudent(className);
+                            addedCount++;
+                        } else {
+                            // Jika SUDAH, lewati
+                            skippedCount++;
+                        }
+                    }
+                }
+            });
+
+            if (addedCount > 0) {
+                // PENTING: Perbarui semua tampilan setelah data baru ditambahkan
+                renderStudentTable();       // Perbarui tabel publik
+                populateStudentSelect();    // Perbarui dropdown guru
+                updateRecap();              // Perbarui tabel rekap
+
+                showSuccessMessage(`✅ Berhasil menambahkan ${addedCount} siswa baru.`);
+                console.log(`Ditambahkan: ${addedCount}, Dilewati: ${skippedCount}`);
+            } else if (skippedCount > 0) {
+                alert(`⚠️ Tidak ada siswa baru yang ditambahkan. ${skippedCount} siswa sudah ada dalam data.`);
+            } else {
+                alert('❌ Gagal memproses file. Pastikan formatnya benar: Nama Siswa,Kelas');
+            }
+            
+            // Kosongkan input file agar bisa dipakai lagi
+            document.getElementById('csvFileInput').value = '';
+        }
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             renderStudentTable(); // Menggunakan nama fungsi baru
@@ -689,4 +788,3 @@
     </script>
 </body>
 </html>
-                   
