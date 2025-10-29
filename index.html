@@ -23,6 +23,13 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
+        /* Style tambahan untuk konten tata tertib yang disisipkan */
+        .rules-content ul, .rules-content ol {
+            padding-left: 1.5rem;
+        }
+        .rules-content li {
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-full">
@@ -43,20 +50,19 @@
                 <button onclick="showTab('recap')" id="recapTab" class="px-6 py-2 rounded-md font-medium transition-all text-gray-600 hover:text-indigo-600">
                     📊 Rekap Detail
                 </button>
-                
-                <button onclick="showTab('rules')" id="rulesTab" class="px-6 py-2 rounded-md font-medium transition-all text-gray-600 hover:text-indigo-600">
-                    📜 Tata Tertib
-                </button>
-                
             </div>
         </div>
 
         <div id="publicSection" class="fade-in">
             <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Data Poin Pelanggaran Siswa</h2>
+                
                 <div class="mb-4">
-                    <input type="text" id="searchInput" onkeyup="renderStudentTable()" placeholder="Ketuk untuk mencari nama siswa..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    <input type="text" id="searchInput" onkeyup="renderStudentTable()" 
+                           placeholder="Ketuk untuk mencari nama siswa..." 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
+                
                 <div class="overflow-x-auto">
                     <table class="w-full border-collapse">
                         <thead>
@@ -67,10 +73,12 @@
                                 <th class="border border-gray-300 px-4 py-3 text-center font-semibold text-indigo-800">Status</th>
                             </tr>
                         </thead>
-                        <tbody id="studentTable"></tbody>
+                        <tbody id="studentTable">
+                            </tbody>
                     </table>
                 </div>
             </div>
+
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <h3 class="text-lg font-bold text-gray-800 mb-4">📋 Kategori Status</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -84,8 +92,7 @@
                     </div>
                     <div class="flex items-center space-x-2">
                         <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Bermasalah</span>
-                        <span class="text-gray-600">21+ poin</span>
-                    </div>
+                        <span class="text-gray-600">21+ poin</span> </div>
                 </div>
             </div>
         </div>
@@ -93,27 +100,94 @@
         <div id="teacherSection" class="hidden">
             <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">🔐 Akses Guru</h2>
+                
                 <div id="loginForm" class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Kode Akses Guru</label>
-                        <input type="password" id="teacherCode" placeholder="Masukkan kode akses" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <input type="password" id="teacherCode" placeholder="Masukkan kode akses" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                     </div>
                     <button onclick="verifyTeacher()" class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
                         🔓 Masuk
                     </button>
                 </div>
+
                 <div id="teacherPanel" class="hidden space-y-6">
                     <div class="bg-green-50 border border-green-200 rounded-lg p-4">
                         <p class="text-green-800 font-medium">✅ Berhasil masuk sebagai guru</p>
                     </div>
+
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Siswa</label>
                         <select id="studentSelect" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                             <option value="">-- Pilih Siswa --</option>
-                        </select>
+                            </select>
                     </div>
+
                     <div>
                         <h3 class="text-lg font-bold text-gray-800 mb-4">Jenis Pelanggaran</h3>
+                        
+                        <details class="mb-6 bg-gray-50 border border-gray-200 rounded-lg overflow-hidden">
+                            <summary class="font-medium text-indigo-700 cursor-pointer p-4 hover:bg-gray-100">
+                                📜 Tampilkan/Sembunyikan Tata Tertib Lengkap
+                            </summary>
+                            <div class="rules-content p-6 border-t border-gray-200">
+                                <header class="text-center mb-6 pb-4 border-b">
+                                    <h1 class="text-xl font-bold text-gray-900">Tata Tertib</h1>
+                                    <h2 class="text-lg font-semibold text-gray-700">SMA 1 Simanjaya</h2>
+                                    <p class="text-md text-gray-500">Tahun Pelajaran 2025/2026</p>
+                                </header>
+                        
+                                <section class="bg-blue-600 text-white p-4 rounded-lg text-center mb-6 shadow-md">
+                                    <h3 class="text-lg font-bold">Jargon SMA 1 Simanjaya</h3>
+                                    <p class="text-md mt-2 font-light">"Siap BHISA, Siap DISIPLIN, Siap JUARA..."</p>
+                                </section>
+                        
+                                <section class="mb-6">
+                                    <h3 class="text-lg font-bold text-gray-800 border-b-2 border-blue-200 pb-2 mb-3">Jenis Pelanggaran</h3>
+                                    <ul class="list-decimal list-inside bg-gray-50 p-4 rounded-lg space-y-2 text-gray-700">
+                                        <li>Pakaian Seragam</li>
+                                        <li>Rambut, Kuku, Tato, Make Up</li>
+                                        <li>Masuk dan Pulang Sekolah</li>
+                                        <li>Kebersihan, Kedisiplinan dan Ketertiban</li>
+                                        <li>Sopan Santun Pergaulan</li>
+                                        <li>Upacara Bendera dan Peringatan Hari Besar</li>
+                                        <li>Kegiatan Keagamaan</li>
+                                        <li>Larangan-larangan</li>
+                                    </ul>
+                                </section>
+                        
+                                <section class="mb-6">
+                                    <h3 class="text-lg font-bold text-gray-800 border-b-2 border-blue-200 pb-2 mb-3">Petugas yang Mencatat Pelanggaran</h3>
+                                    <ul class="list-disc list-inside bg-gray-50 p-4 rounded-lg space-y-2 text-gray-700">
+                                        <li>Petugas Ketertiban</li>
+                                        <li>Guru Piket</li>
+                                        <li>Wali Kelas</li>
+                                        <li>Semua Guru</li>
+                                    </ul>
+                                </section>
+                        
+                                <section class="mb-6">
+                                    <h3 class="text-lg font-bold text-gray-800 border-b-2 border-blue-200 pb-2 mb-3">Mekanisme Pelaksanaan</h3>
+                                    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-lg" role="alert">
+                                        <p class="font-bold mb-2">Bagaimana jika ada siswa yang terbukti melakukan pelanggaran?</p>
+                                        <p>Maka petugas wajib memerintahkan siswa yang bersangkutan untuk mengisi dan menandatangani blangko pelanggaran siswa.</p>
+                                    </div>
+                                </section>
+                        
+                                <section class="mb-6">
+                                    <h3 class="text-lg font-bold text-gray-800 border-b-2 border-blue-200 pb-2 mb-3">Tindak Lanjut</h3>
+                                    <ol class="list-decimal list-inside space-y-3 text-gray-700">
+                                        <li>Data dari setiap siswa akan direkap oleh petugas ketertiban setiap 2 minggu, kemudian dilaporkan kepada guru BK, kemudian data tersebut dilaporkan kepada wali kelas dan wakil kepala sekolah.</li>
+                                        <li>Selanjutnya pemberian tindakan/sanksi sesuai dengan jenis dan jumlah poin pelanggaran.</li>
+                                    </ol>
+                                </section>
+                        
+                                <footer class="text-center text-gray-500 italic mt-8 pt-4 border-t">
+                                    <p>"SAYA SIAP MENJADI SISWA SISWI YANG BERAKHLAQ, BERPERILAKU BAIK, BERKUALITAS DAN MELAKSANAKAN ATURAN SEKOLAH DENGAN BAIK."</p>
+                                </footer>
+                            </div>
+                        </details>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <button onclick="addViolation('Terlambat', 2)" class="bg-yellow-100 hover:bg-yellow-200 border-2 border-yellow-300 rounded-lg p-4 text-left transition-all">
                                 <div class="font-bold text-yellow-800">⏰ Terlambat</div>
@@ -141,6 +215,7 @@
                             </button>
                         </div>
                     </div>
+
                     <button onclick="logout()" class="w-full bg-gray-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-600 transition-colors">
                         🚪 Keluar
                     </button>
@@ -152,6 +227,7 @@
             <div id="recapDetailContent" class="bg-white rounded-xl shadow-lg p-6">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Rekap Detail Seluruh Siswa</h2>
                 <p class="text-gray-600 mb-6">Tabel ini menampilkan data poin dan detail pelanggaran untuk semua siswa. Gunakan tombol di bawah untuk mengunduh sebagai file Excel (CSV).</p>
+                
                 <div class="overflow-x-auto">
                     <table class="w-full border-collapse">
                         <thead>
@@ -163,75 +239,17 @@
                                 <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Detail Pelanggaran</th>
                             </tr>
                         </thead>
-                        <tbody id="recapDetailTableBody"></tbody>
+                        <tbody id="recapDetailTableBody">
+                            </tbody>
                     </table>
                 </div>
             </div>
+            
             <button onclick="downloadRecapAsExcel()" class="mt-6 w-full bg-green-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-green-700 transition-colors">
                 📥 Unduh Rekap Detail (Excel)
             </button>
         </div>
 
-        <div id="rulesSection" class="hidden fade-in">
-            <div class="bg-white rounded-xl shadow-lg p-6 md:p-10">
-
-                <header class="text-center mb-10 pb-4 border-b">
-                    <h1 class="text-3xl font-bold text-gray-900">Tata Tertib</h1>
-                    <h2 class="text-2xl font-semibold text-gray-700">SMA 1 Simanjaya</h2>
-                    <p class="text-lg text-gray-500">Tahun Pelajaran 2025/2026</p>
-                </header>
-
-                <section class="bg-blue-600 text-white p-6 rounded-lg text-center mb-10 shadow-md">
-                    <h3 class="text-2xl font-bold">Jargon SMA 1 Simanjaya</h3>
-                    <p class="text-xl mt-2 font-light">"Siap BHISA, Siap DISIPLIN, Siap JUARA..."</p>
-                </section>
-
-                <section class="mb-8">
-                    <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-blue-200 pb-2 mb-4">Jenis Pelanggaran</h3>
-                    <ul class="list-decimal list-inside bg-gray-50 p-6 rounded-lg space-y-2 text-gray-700">
-                        <li>Pakaian Seragam</li>
-                        <li>Rambut, Kuku, Tato, Make Up</li>
-                        <li>Masuk dan Pulang Sekolah</li>
-                        <li>Kebersihan, Kedisiplinan dan Ketertiban</li>
-                        <li>Sopan Santun Pergaulan</li>
-                        <li>Upacara Bendera dan Peringatan Hari Besar</li>
-                        <li>Kegiatan Keagamaan</li>
-                        <li>Larangan-larangan</li>
-                    </ul>
-                </section>
-
-                <section class="mb-8">
-                    <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-blue-200 pb-2 mb-4">Petugas yang Mencatat Pelanggaran</h3>
-                    <ul class="list-disc list-inside bg-gray-50 p-6 rounded-lg space-y-2 text-gray-700">
-                        <li>Petugas Ketertiban</li>
-                        <li>Guru Piket</li>
-                        <li>Wali Kelas</li>
-                        <li>Semua Guru</li>
-                    </ul>
-                </section>
-
-                <section class="mb-8">
-                    <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-blue-200 pb-2 mb-4">Mekanisme Pelaksanaan</h3>
-                    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-6 rounded-lg" role="alert">
-                        <p class="font-bold mb-2">Bagaimana jika ada siswa yang terbukti melakukan pelanggaran?</p>
-                        <p>Maka petugas wajib memerintahkan siswa yang bersangkutan untuk mengisi dan menandatangani blangko pelanggaran siswa.</p>
-                    </div>
-                </section>
-
-                <section class="mb-8">
-                    <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-blue-200 pb-2 mb-4">Tindak Lanjut</h3>
-                    <ol class="list-alpha list-inside space-y-3 text-gray-700">
-                        <li>Data dari setiap siswa akan direkap oleh petugas ketertiban setiap 2 minggu, kemudian dilaporkan kepada guru BK, kemudian data tersebut dilaporkan kepada wali kelas dan wakil kepala sekolah.</li>
-                        <li>Selanjutnya pemberian tindakan/sanksi sesuai dengan jenis dan jumlah poin pelanggaran.</li>
-                    </ol>
-                </section>
-
-                <footer class="text-center text-gray-500 italic mt-12 pt-6 border-t">
-                    <p>"SAYA SIAP MENJADI SISWA SISWI YANG BERAKHLAQ, BERPERILAKU BAIK, BERKUALITAS DAN MELAKSANAKAN ATURAN SEKOLAH DENGAN BAIK."</p>
-                </footer>
-
-            </div>
-        </div>
         <div id="successMessage" class="hidden fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
             <div class="flex items-center space-x-2">
                 <span>✅</span>
@@ -241,9 +259,8 @@
     </div>
 
     <script>
-        // --- STRUKTUR DATA (TETAP SAMA) ---
+        // --- STRUKTUR DATA (Sama seperti file) ---
         const createStudent = (className) => ({
-            // ... (Fungsi createStudent tetap sama)
             class: className,
             points: 0,
             violations: {
@@ -257,7 +274,6 @@
         });
 
         let studentData = {
-            // ... (Data siswa lengkap tetap sama)
             'ANGGI ARLIJANTI': createStudent('XI 1'),
             'ARDHONI UBAIDILLAH RIZKY': createStudent('XI 1'),
             'AYU WULANDARI': createStudent('XI 1'),
@@ -380,7 +396,7 @@
             'NUR SYAHRANI MAGHFIROH RAMADHANI': createStudent('XII 1'),
             'RISFANDI TRI ARDIANSYAH': createStudent('XII 1'),
             'RIZKY PUTRI AMEILIA DEWI': createStudent('XII 1'),
-            'SITI ABIDAH ARDELia': createStudent('XII 1'),
+            'SITI ABIDAH ARDELIA': createStudent('XII 1'),
             'SITI ROIHATUS SHOLIHA': createStudent('XII 1'),
             'SYARIFAH ZAHARA': createStudent('XII 1'),
             'ZAHROTUL JANNAH': createStudent('XII 1'),
@@ -420,24 +436,22 @@
         // Valid teacher codes
         const teacherCodes = ['SMANJAOKE123'];
 
-        // --- BARU: FUNGSI showTab DIPERBARUI ---
+        // --- SEMUA FUNGSI JAVASCRIPT (Sama seperti file) ---
+        
         function showTab(tab) {
             // Hide all sections
             document.getElementById('publicSection').classList.add('hidden');
             document.getElementById('teacherSection').classList.add('hidden');
             document.getElementById('recapSection').classList.add('hidden');
-            document.getElementById('rulesSection').classList.add('hidden'); // <-- BARU
 
             // Remove active class from all tabs
             document.getElementById('publicTab').classList.remove('bg-indigo-500', 'text-white');
             document.getElementById('teacherTab').classList.remove('bg-indigo-500', 'text-white');
             document.getElementById('recapTab').classList.remove('bg-indigo-500', 'text-white');
-            document.getElementById('rulesTab').classList.remove('bg-indigo-500', 'text-white'); // <-- BARU
             
             document.getElementById('publicTab').classList.add('text-gray-600');
             document.getElementById('teacherTab').classList.add('text-gray-600');
             document.getElementById('recapTab').classList.add('text-gray-600');
-            document.getElementById('rulesTab').classList.add('text-gray-600'); // <-- BARU
 
             // Show selected section and activate tab
             if (tab === 'public') {
@@ -453,16 +467,12 @@
                 document.getElementById('recapTab').classList.add('bg-indigo-500', 'text-white');
                 document.getElementById('recapTab').classList.remove('text-gray-600');
                 updateRecap();
-            } else if (tab === 'rules') { // <-- BLOK KONDISI BARU
-                document.getElementById('rulesSection').classList.remove('hidden');
-                document.getElementById('rulesTab').classList.add('bg-indigo-500', 'text-white');
-                document.getElementById('rulesTab').classList.remove('text-gray-600');
             }
         }
 
         function verifyTeacher() {
-            // ... (Fungsi verifyTeacher tetap sama)
-             const code = document.getElementById('teacherCode').value;
+            const code = document.getElementById('teacherCode').value;
+            
             if (teacherCodes.includes(code)) {
                 document.getElementById('loginForm').classList.add('hidden');
                 document.getElementById('teacherPanel').classList.remove('hidden');
@@ -472,31 +482,33 @@
         }
 
         function logout() {
-            // ... (Fungsi logout tetap sama)
             document.getElementById('loginForm').classList.remove('hidden');
             document.getElementById('teacherPanel').classList.add('hidden');
             document.getElementById('teacherCode').value = '';
         }
 
         function addViolation(violationType, points) {
-            // ... (Fungsi addViolation tetap sama)
             const selectedStudent = document.getElementById('studentSelect').value;
+            
             if (!selectedStudent) {
                 alert('⚠️ Silakan pilih siswa terlebih dahulu!');
                 return;
             }
+
             studentData[selectedStudent].points += points;
             studentData[selectedStudent].violations[violationType]++;
+            
             renderStudentTable(); 
             updateRecap();
+            
             showSuccessMessage(`Poin ${violationType} (+${points}) berhasil ditambahkan untuk ${selectedStudent}`);
         }
 
         function renderStudentTable() {
-            // ... (Fungsi renderStudentTable tetap sama)
             const filter = document.getElementById('searchInput').value.toUpperCase();
             const tableBody = document.getElementById('studentTable');
             tableBody.innerHTML = '';
+
             const groupedStudents = {};
             Object.keys(studentData).forEach(name => {
                 const student = studentData[name];
@@ -505,17 +517,21 @@
                 }
                 groupedStudents[student.class].push({ name, ...student });
             });
+
             const classOrder = {'X': 1, 'XI': 2, 'XII': 3};
             const sortedClasses = Object.keys(groupedStudents).sort((a, b) => {
                 const [prefixA] = a.split(' ');
                 const [prefixB] = b.split(' ');
+                
                 const orderA = classOrder[prefixA] || 99;
                 const orderB = classOrder[prefixB] || 99;
+
                 if (orderA !== orderB) {
                     return orderA - orderB;
                 }
                 return a.localeCompare(b);
             });
+
             sortedClasses.forEach(className => {
                 const classHeaderRow = document.createElement('tr');
                 classHeaderRow.classList.add('bg-indigo-100', 'font-bold');
@@ -523,12 +539,15 @@
                     <td colspan="4" class="border border-gray-300 px-4 py-3 text-indigo-900">${className}</td>
                 `;
                 tableBody.appendChild(classHeaderRow);
+
                 const studentsInClass = groupedStudents[className].sort((a, b) => a.name.localeCompare(b.name));
+
                 let studentsFound = 0;
                 studentsInClass.forEach(student => {
                     if (student.name.toUpperCase().indexOf(filter) > -1) {
                         studentsFound++;
                         const row = document.createElement('tr');
+                        
                         let status, statusClass;
                         if (student.points <= 10) {
                             status = 'Baik';
@@ -540,10 +559,12 @@
                             status = 'Bermasalah';
                             statusClass = 'bg-red-100 text-red-800';
                         }
+
                         let pointsColor;
                         if (student.points <= 10) pointsColor = 'text-green-600';
                         else if (student.points <= 20) pointsColor = 'text-orange-600';
                         else pointsColor = 'text-red-600';
+
                         row.innerHTML = `
                             <td class="border border-gray-300 px-4 py-3">${student.name}</td>
                             <td class="border border-gray-300 px-4 py-3">${student.class}</td>
@@ -552,9 +573,11 @@
                                 <span class="${statusClass} px-2 py-1 rounded-full text-sm">${status}</span>
                             </td>
                         `;
+                        
                         tableBody.appendChild(row);
                     }
                 });
+
                 if (studentsFound === 0 && filter.length > 0) {
                     classHeaderRow.classList.add('hidden');
                 }
@@ -562,10 +585,10 @@
         }
         
         function populateStudentSelect() {
-            // ... (Fungsi populateStudentSelect tetap sama)
             const select = document.getElementById('studentSelect');
-            select.innerHTML = '<option value="">-- Pilih Siswa --</option>';
+            select.innerHTML = '<option value="">-- Pilih Siswa --</option>'; 
             const sortedNames = Object.keys(studentData).sort();
+
             sortedNames.forEach(name => {
                 const student = studentData[name];
                 const option = document.createElement('option');
@@ -576,12 +599,13 @@
         }
 
         function showSuccessMessage(message) {
-            // ... (Fungsi showSuccessMessage tetap sama)
             const successMessage = document.getElementById('successMessage');
             const successText = document.getElementById('successText');
+            
             successText.textContent = message;
             successMessage.classList.remove('hidden');
             successMessage.classList.add('pulse-animation');
+            
             setTimeout(() => {
                 successMessage.classList.add('hidden');
                 successMessage.classList.remove('pulse-animation');
@@ -589,12 +613,14 @@
         }
 
         function updateRecap() {
-            // ... (Fungsi updateRecap tetap sama)
             const detailTableBody = document.getElementById('recapDetailTableBody');
-            detailTableBody.innerHTML = '';
+            detailTableBody.innerHTML = ''; 
+            
             const sortedNames = Object.keys(studentData).sort();
+            
             sortedNames.forEach(name => {
                 const student = studentData[name];
+
                 let status, statusClass;
                 if (student.points <= 10) {
                     status = 'Baik';
@@ -606,17 +632,21 @@
                     status = 'Bermasalah';
                     statusClass = 'bg-red-100 text-red-800';
                 }
+
                 let pointsColor;
                 if (student.points <= 10) pointsColor = 'text-green-600';
                 else if (student.points <= 20) pointsColor = 'text-orange-600';
                 else pointsColor = 'text-red-600';
+
                 let violationString = Object.keys(student.violations)
                     .filter(type => student.violations[type] > 0)
                     .map(type => `${type} (x${student.violations[type]})`)
                     .join(', ');
+
                 if (student.points === 0) {
                     violationString = "Tidak ada pelanggaran";
                 }
+
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td class="border border-gray-300 px-4 py-3">${name}</td>
@@ -630,9 +660,8 @@
                 detailTableBody.appendChild(row);
             });
         }
-        
+
         function downloadRecapAsExcel() {
-            // ... (Fungsi downloadRecapAsExcel tetap sama)
             const tableHTML = document.querySelector("#recapDetailContent table").outerHTML;
             const htmlTemplate = `
                 <!DOCTYPE html>
@@ -670,10 +699,12 @@
                 </body>
                 </html>
             `;
+
             const blob = new Blob([htmlTemplate], { type: 'application/vnd.ms-excel' });
+            
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = "rekap_detail_kedisiplinan.xls";
+            link.download = "rekap_detail_kedisiplinan.xls"; 
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -682,9 +713,9 @@
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
-            renderStudentTable();
+            renderStudentTable(); 
             populateStudentSelect();
-            updateRecap();
+            updateRecap(); 
         });
     </script>
 </body>
